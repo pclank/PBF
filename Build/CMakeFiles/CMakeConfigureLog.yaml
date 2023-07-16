@@ -1,0 +1,709 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.22621 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.6.3+07e294721 for .NET Framework
+      Build started 7/16/2023 1:51:57 PM.
+      
+      Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.12
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Repos/Fluid Simulation/Build/CMakeFiles/3.26.4/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.6.3+07e294721 for .NET Framework
+      Build started 7/16/2023 1:51:59 PM.
+      
+      Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\3.26.4\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.73
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Repos/Fluid Simulation/Build/CMakeFiles/3.26.4/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-uivyfl"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-uivyfl"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-uivyfl
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_041c5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:00 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-uivyfl\\cmTC_041c5.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_041c5.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-uivyfl\\Debug\\".
+          Creating directory "cmTC_041c5.dir\\Debug\\cmTC_041c5.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_041c5.dir\\Debug\\cmTC_041c5.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_041c5.dir\\Debug\\\\" /Fd"cmTC_041c5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_041c5.dir\\Debug\\\\" /Fd"cmTC_041c5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-uivyfl\\Debug\\cmTC_041c5.exe" /INCREMENTAL /ILK:"cmTC_041c5.dir\\Debug\\cmTC_041c5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-uivyfl/Debug/cmTC_041c5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-uivyfl/Debug/cmTC_041c5.lib" /MACHINE:X64  /machine:x64 cmTC_041c5.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_041c5.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-uivyfl\\Debug\\cmTC_041c5.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_041c5.dir\\Debug\\cmTC_041c5.tlog\\unsuccessfulbuild".
+          Touching "cmTC_041c5.dir\\Debug\\cmTC_041c5.tlog\\cmTC_041c5.lastbuildstate".
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-uivyfl\\cmTC_041c5.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.73
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-e2zuzr"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-e2zuzr"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-e2zuzr
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_18ede.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:01 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-e2zuzr\\cmTC_18ede.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_18ede.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-e2zuzr\\Debug\\".
+          Creating directory "cmTC_18ede.dir\\Debug\\cmTC_18ede.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_18ede.dir\\Debug\\cmTC_18ede.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_18ede.dir\\Debug\\\\" /Fd"cmTC_18ede.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CMakeCXXCompilerABI.cpp
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_18ede.dir\\Debug\\\\" /Fd"cmTC_18ede.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-e2zuzr\\Debug\\cmTC_18ede.exe" /INCREMENTAL /ILK:"cmTC_18ede.dir\\Debug\\cmTC_18ede.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-e2zuzr/Debug/cmTC_18ede.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-e2zuzr/Debug/cmTC_18ede.lib" /MACHINE:X64  /machine:x64 cmTC_18ede.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_18ede.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-e2zuzr\\Debug\\cmTC_18ede.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_18ede.dir\\Debug\\cmTC_18ede.tlog\\unsuccessfulbuild".
+          Touching "cmTC_18ede.dir\\Debug\\cmTC_18ede.tlog\\cmTC_18ede.lastbuildstate".
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-e2zuzr\\cmTC_18ede.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "PBF/Vendor/glfw/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-16zgqw"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-16zgqw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-16zgqw
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_b66b5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:02 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\cmTC_b66b5.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_b66b5.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\Debug\\".
+          Creating directory "cmTC_b66b5.dir\\Debug\\cmTC_b66b5.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_b66b5.dir\\Debug\\cmTC_b66b5.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b66b5.dir\\Debug\\\\" /Fd"cmTC_b66b5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          src.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b66b5.dir\\Debug\\\\" /Fd"cmTC_b66b5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\src.c"
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\cmTC_b66b5.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\cmTC_b66b5.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\cmTC_b66b5.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-16zgqw\\cmTC_b66b5.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.35
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "PBF/Vendor/glfw/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-v1gye3"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-v1gye3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-v1gye3
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_1ed4a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:03 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\cmTC_1ed4a.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_1ed4a.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\Debug\\".
+          Creating directory "cmTC_1ed4a.dir\\Debug\\cmTC_1ed4a.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_1ed4a.dir\\Debug\\cmTC_1ed4a.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1ed4a.dir\\Debug\\\\" /Fd"cmTC_1ed4a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckFunctionExists.c
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1ed4a.dir\\Debug\\\\" /Fd"cmTC_1ed4a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\Debug\\cmTC_1ed4a.exe" /INCREMENTAL /ILK:"cmTC_1ed4a.dir\\Debug\\cmTC_1ed4a.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-v1gye3/Debug/cmTC_1ed4a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-v1gye3/Debug/cmTC_1ed4a.lib" /MACHINE:X64  /machine:x64 cmTC_1ed4a.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\cmTC_1ed4a.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\cmTC_1ed4a.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\cmTC_1ed4a.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-v1gye3\\cmTC_1ed4a.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.45
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "PBF/Vendor/glfw/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-q5ryym"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-q5ryym"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-q5ryym
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_f4213.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:03 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\cmTC_f4213.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_f4213.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\Debug\\".
+          Creating directory "cmTC_f4213.dir\\Debug\\cmTC_f4213.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_f4213.dir\\Debug\\cmTC_f4213.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f4213.dir\\Debug\\\\" /Fd"cmTC_f4213.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f4213.dir\\Debug\\\\" /Fd"cmTC_f4213.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\Debug\\cmTC_f4213.exe" /INCREMENTAL /ILK:"cmTC_f4213.dir\\Debug\\cmTC_f4213.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-q5ryym/Debug/cmTC_f4213.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-q5ryym/Debug/cmTC_f4213.lib" /MACHINE:X64  /machine:x64 cmTC_f4213.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\cmTC_f4213.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\cmTC_f4213.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\cmTC_f4213.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-q5ryym\\cmTC_f4213.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.45
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:35 (check_include_file)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-2qfeyd"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-2qfeyd"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-2qfeyd
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_3fd78.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:04 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\cmTC_3fd78.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_3fd78.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\Debug\\".
+          Creating directory "cmTC_3fd78.dir\\Debug\\cmTC_3fd78.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_3fd78.dir\\Debug\\cmTC_3fd78.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3fd78.dir\\Debug\\\\" /Fd"cmTC_3fd78.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckIncludeFile.c
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3fd78.dir\\Debug\\\\" /Fd"cmTC_3fd78.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\Debug\\cmTC_3fd78.exe" /INCREMENTAL /ILK:"cmTC_3fd78.dir\\Debug\\cmTC_3fd78.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-2qfeyd/Debug/cmTC_3fd78.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-2qfeyd/Debug/cmTC_3fd78.lib" /MACHINE:X64  /machine:x64 cmTC_3fd78.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_3fd78.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\Debug\\cmTC_3fd78.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_3fd78.dir\\Debug\\cmTC_3fd78.tlog\\unsuccessfulbuild".
+          Touching "cmTC_3fd78.dir\\Debug\\cmTC_3fd78.tlog\\cmTC_3fd78.lastbuildstate".
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-2qfeyd\\cmTC_3fd78.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.59
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:36 (check_include_file)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-x6mcr9"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-x6mcr9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-x6mcr9
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_2bb3b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:05 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\cmTC_2bb3b.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_2bb3b.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\Debug\\".
+          Creating directory "cmTC_2bb3b.dir\\Debug\\cmTC_2bb3b.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_2bb3b.dir\\Debug\\cmTC_2bb3b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2bb3b.dir\\Debug\\\\" /Fd"cmTC_2bb3b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          CheckIncludeFile.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2bb3b.dir\\Debug\\\\" /Fd"cmTC_2bb3b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\Debug\\cmTC_2bb3b.exe" /INCREMENTAL /ILK:"cmTC_2bb3b.dir\\Debug\\cmTC_2bb3b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-x6mcr9/Debug/cmTC_2bb3b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-x6mcr9/Debug/cmTC_2bb3b.lib" /MACHINE:X64  /machine:x64 cmTC_2bb3b.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_2bb3b.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\Debug\\cmTC_2bb3b.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_2bb3b.dir\\Debug\\cmTC_2bb3b.tlog\\unsuccessfulbuild".
+          Touching "cmTC_2bb3b.dir\\Debug\\cmTC_2bb3b.tlog\\cmTC_2bb3b.lastbuildstate".
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-x6mcr9\\cmTC_2bb3b.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:37 (check_include_file)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-5cnwtj"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-5cnwtj"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-5cnwtj
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_6bcb7.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:06 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\cmTC_6bcb7.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_6bcb7.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\Debug\\".
+          Creating directory "cmTC_6bcb7.dir\\Debug\\cmTC_6bcb7.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_6bcb7.dir\\Debug\\cmTC_6bcb7.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6bcb7.dir\\Debug\\\\" /Fd"cmTC_6bcb7.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckIncludeFile.c
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6bcb7.dir\\Debug\\\\" /Fd"cmTC_6bcb7.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\Debug\\cmTC_6bcb7.exe" /INCREMENTAL /ILK:"cmTC_6bcb7.dir\\Debug\\cmTC_6bcb7.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-5cnwtj/Debug/cmTC_6bcb7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-5cnwtj/Debug/cmTC_6bcb7.lib" /MACHINE:X64  /machine:x64 cmTC_6bcb7.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_6bcb7.vcxproj -> C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\Debug\\cmTC_6bcb7.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_6bcb7.dir\\Debug\\cmTC_6bcb7.tlog\\unsuccessfulbuild".
+          Touching "cmTC_6bcb7.dir\\Debug\\cmTC_6bcb7.tlog\\cmTC_6bcb7.lastbuildstate".
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-5cnwtj\\cmTC_6bcb7.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.57
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake:148 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake:273 (__check_type_size_impl)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:55 (check_type_size)"
+    checks:
+      - "Check size of off64_t"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-6wpkfs"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-6wpkfs"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "HAVE_OFF64_T"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-6wpkfs
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_f1fdc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:07 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_f1fdc.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\Debug\\".
+          Creating directory "cmTC_f1fdc.dir\\Debug\\cmTC_f1fdc.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_f1fdc.dir\\Debug\\cmTC_f1fdc.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f1fdc.dir\\Debug\\\\" /Fd"cmTC_f1fdc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          OFF64_T.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f1fdc.dir\\Debug\\\\" /Fd"cmTC_f1fdc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c"
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(29,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(30,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(31,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(32,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(33,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(29,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(30,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(31,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(32,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\OFF64_T.c(33,12): error C2065: 'off64_t': undeclared identifier [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-6wpkfs\\cmTC_f1fdc.vcxproj]
+        
+            0 Warning(s)
+            5 Error(s)
+        
+        Time Elapsed 00:00:00.33
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake:91 (try_compile)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:64 (check_function_exists)"
+    checks:
+      - "Looking for fseeko"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-1ba2hp"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-1ba2hp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "HAVE_FSEEKO"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-1ba2hp
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_40aec.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:08 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_40aec.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\Debug\\".
+          Creating directory "cmTC_40aec.dir\\Debug\\cmTC_40aec.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_40aec.dir\\Debug\\cmTC_40aec.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_40aec.dir\\Debug\\\\" /Fd"cmTC_40aec.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckFunctionExists.c
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_40aec.dir\\Debug\\\\" /Fd"cmTC_40aec.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\Debug\\cmTC_40aec.exe" /INCREMENTAL /ILK:"cmTC_40aec.dir\\Debug\\cmTC_40aec.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-1ba2hp/Debug/cmTC_40aec.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-1ba2hp/Debug/cmTC_40aec.lib" /MACHINE:X64  /machine:x64 cmTC_40aec.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: unresolved external symbol fseeko referenced in function main [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj]
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\Debug\\cmTC_40aec.exe : fatal error LNK1120: 1 unresolved externals [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          CheckFunctionExists.obj : error LNK2019: unresolved external symbol fseeko referenced in function main [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj]
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\Debug\\cmTC_40aec.exe : fatal error LNK1120: 1 unresolved externals [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-1ba2hp\\cmTC_40aec.vcxproj]
+        
+            0 Warning(s)
+            2 Error(s)
+        
+        Time Elapsed 00:00:00.54
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt:72 (check_include_file)"
+    checks:
+      - "Looking for unistd.h"
+    directories:
+      source: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-wxhsoi"
+      binary: "C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-wxhsoi"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules"
+    buildResult:
+      variable: "Z_HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Repos/Fluid Simulation/Build/CMakeFiles/CMakeScratch/TryCompile-wxhsoi
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_a5d18.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 7/16/2023 1:52:08 PM.
+        
+        Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\cmTC_a5d18.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_a5d18.dir\\Debug\\".
+          Creating directory "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\Debug\\".
+          Creating directory "cmTC_a5d18.dir\\Debug\\cmTC_a5d18.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_a5d18.dir\\Debug\\cmTC_a5d18.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a5d18.dir\\Debug\\\\" /Fd"cmTC_a5d18.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32534 for x64
+          CheckIncludeFile.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a5d18.dir\\Debug\\\\" /Fd"cmTC_a5d18.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\CheckIncludeFile.c"
+        C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\CheckIncludeFile.c(1,10): fatal  error C1083: Cannot open include file: 'unistd.h': No such file or directory [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\cmTC_a5d18.vcxproj]
+        Done Building Project "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\cmTC_a5d18.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\cmTC_a5d18.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\CheckIncludeFile.c(1,10): fatal  error C1083: Cannot open include file: 'unistd.h': No such file or directory [C:\\Repos\\Fluid Simulation\\Build\\CMakeFiles\\CMakeScratch\\TryCompile-wxhsoi\\cmTC_a5d18.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.33
+        
+      exitCode: 1
+...

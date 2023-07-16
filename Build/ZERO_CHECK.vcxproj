@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2644B224-C062-33BD-9623-E19B9B4C1FA6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\Fluid Simulation\PBF\Headers;C:\Repos\Fluid Simulation\PBF\imgui;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include;C:\Repos\Fluid Simulation\PBF\Vendor\glad\include;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\include;C:\Repos\Fluid Simulation\PBF\Vendor\glm;C:\Repos\Fluid Simulation\PBF\Vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\Fluid Simulation\PBF\Headers;C:\Repos\Fluid Simulation\PBF\imgui;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include;C:\Repos\Fluid Simulation\PBF\Vendor\glad\include;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\include;C:\Repos\Fluid Simulation\PBF\Vendor\glm;C:\Repos\Fluid Simulation\PBF\Vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\Fluid Simulation\PBF\Headers;C:\Repos\Fluid Simulation\PBF\imgui;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include;C:\Repos\Fluid Simulation\PBF\Vendor\glad\include;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\include;C:\Repos\Fluid Simulation\PBF\Vendor\glm;C:\Repos\Fluid Simulation\PBF\Vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\Fluid Simulation\PBF\Headers;C:\Repos\Fluid Simulation\PBF\imgui;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include;C:\Repos\Fluid Simulation\PBF\Vendor\glad\include;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\include;C:\Repos\Fluid Simulation\PBF\Vendor\glm;C:\Repos\Fluid Simulation\PBF\Vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Repos\Fluid Simulation\Build\CMakeFiles\6da35b0c8b060371bc6de6771ea812f6\generate.stamp.rule">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Repos/Fluid Simulation" "-BC:/Repos/Fluid Simulation/Build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Repos/Fluid Simulation/Build/PBF.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckFunctionExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCXXCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeRCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeSystem.cmake;C:\Repos\Fluid Simulation\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\assimp.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindPkgMacros.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindZLIB.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\PrecompiledHeader.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\assimp-plain-config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\code\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zconf.h.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zlib.pc.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include\assimp\config.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\revision.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\cmake_uninstall.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3Config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Repos\Fluid Simulation\Build\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\src\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\contrib\zlib\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Repos/Fluid Simulation" "-BC:/Repos/Fluid Simulation/Build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Repos/Fluid Simulation/Build/PBF.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckFunctionExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCXXCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeRCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeSystem.cmake;C:\Repos\Fluid Simulation\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\assimp.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindPkgMacros.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindZLIB.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\PrecompiledHeader.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\assimp-plain-config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\code\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zconf.h.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zlib.pc.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include\assimp\config.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\revision.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\cmake_uninstall.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3Config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Repos\Fluid Simulation\Build\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\src\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\contrib\zlib\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Repos/Fluid Simulation" "-BC:/Repos/Fluid Simulation/Build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Repos/Fluid Simulation/Build/PBF.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckFunctionExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCXXCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeRCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeSystem.cmake;C:\Repos\Fluid Simulation\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\assimp.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindPkgMacros.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindZLIB.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\PrecompiledHeader.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\assimp-plain-config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\code\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zconf.h.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zlib.pc.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include\assimp\config.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\revision.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\cmake_uninstall.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3Config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Repos\Fluid Simulation\Build\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\src\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\contrib\zlib\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Repos/Fluid Simulation" "-BC:/Repos/Fluid Simulation/Build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Repos/Fluid Simulation/Build/PBF.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckFunctionExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeCXXCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeRCCompiler.cmake;C:\Repos\Fluid Simulation\Build\CMakeFiles\3.26.4\CMakeSystem.cmake;C:\Repos\Fluid Simulation\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\assimp.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindPkgMacros.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\FindZLIB.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\PrecompiledHeader.cmake;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\cmake-modules\assimp-plain-config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\code\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zconf.h.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\contrib\zlib\zlib.pc.cmakein;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\include\assimp\config.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\assimp\revision.h.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\cmake_uninstall.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3.pc.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\glfw3Config.cmake.in;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMakeLists.txt;C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Repos\Fluid Simulation\Build\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\src\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\contrib\zlib\CMakeFiles\generate.stamp;C:\Repos\Fluid Simulation\Build\PBF\Vendor\assimp\code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

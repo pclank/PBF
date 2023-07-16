@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/contrib/zlib/CMakeLists.txt
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/contrib/zlib/zconf.h.cmakein
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/contrib/zlib/zlib.pc.cmakein

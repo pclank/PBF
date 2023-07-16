@@ -1,0 +1,19 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.26/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPkgConfig.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/WriteBasicConfigVersionFile.cmake
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/CMakeLists.txt
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/assimp.pc.in
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules/FindPkgMacros.cmake
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules/FindZLIB.cmake
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules/PrecompiledHeader.cmake
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/cmake-modules/assimp-plain-config.cmake.in
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/include/assimp/config.h.in
+C:/Repos/Fluid Simulation/PBF/Vendor/assimp/revision.h.in

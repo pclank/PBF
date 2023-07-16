@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Repos\Fluid Simulation\Build\CMakeFiles\aea16e3fb40067609a0e23d303ab45f7\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Repos\Fluid Simulation\PBF\Vendor\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="C:\Repos\Fluid Simulation\PBF\Vendor\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="C:\Repos\Fluid Simulation\Build\PBF\Vendor\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9ED5A633-22EA-30A3-BED0-6DF3F16C3B42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{6BB0E1A4-5F07-3003-8F4B-955F8A22A8E2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
