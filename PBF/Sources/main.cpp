@@ -7,6 +7,7 @@
 #include "AssetLoader.hpp"
 #include "GUI.hpp"
 #include <Skybox.hpp>
+#include <Simulation.hpp>
 #include "Application.hpp"
 
 // System Headers
@@ -128,6 +129,9 @@ int main(int argc, char* argv[])
     // Create Particle Mesh
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
+    // Initialize Simulation
+    Simulation sim(32, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 2.0f, 5.0f);
+
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
     gui.Init();
@@ -185,6 +189,8 @@ int main(int argc, char* argv[])
             Mesh* pActiveMesh = g_renderData.active_asset->m_mesh.get();
             // TODO: Render Obstacle!
         }
+
+        
 
         // Render Particles
         p_mesh.Render(

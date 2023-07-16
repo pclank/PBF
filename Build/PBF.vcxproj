@@ -407,6 +407,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\GUI.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Mesh.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Shader.cpp" />
+    <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Simulation.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Skybox.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Timer.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Vertex.cpp" />
@@ -418,6 +419,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Mesh.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Particle.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Shader.hpp" />
+    <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Simulation.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Skybox.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Timer.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Vertex.hpp" />
@@ -437,6 +439,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="C:\Repos\Fluid Simulation\PBF\Shaders\skybox.vert">
     </None>
     <None Include="C:\Repos\Fluid Simulation\PBF\Shaders\test_shader.frag">
+    </None>
+    <None Include="C:\Repos\Fluid Simulation\.gitattributes">
+    </None>
+    <None Include="C:\Repos\Fluid Simulation\.gitignore">
+    </None>
+    <None Include="C:\Repos\Fluid Simulation\README.md">
     </None>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\imgui\backends\imgui_impl_glfw.cpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\imgui\backends\imgui_impl_glfw.h" />

@@ -19,6 +19,9 @@
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Shader.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Simulation.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Skybox.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -76,6 +79,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Shader.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Simulation.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Skybox.hpp">
@@ -146,6 +152,9 @@
     <None Include="C:\Repos\Fluid Simulation\PBF\Shaders\test_shader.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="C:\Repos\Fluid Simulation\.gitattributes" />
+    <None Include="C:\Repos\Fluid Simulation\.gitignore" />
+    <None Include="C:\Repos\Fluid Simulation\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

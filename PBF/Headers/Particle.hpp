@@ -7,8 +7,7 @@
 /// </summary>
 struct Particle
 {
-	glm::vec3 com;					// Position of COM
-	glm::vec3 velocity;				// Velocity of COM
-	unsigned int grid;				// Grid the particle belongs to
+	glm::vec3 com;							// Position of COM
+	glm::vec3 velocity = glm::vec3(0.0f);	// Velocity of COM
+	int grid = -1;							// Grid the particle belongs to
 };
-
