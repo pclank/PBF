@@ -7,6 +7,8 @@
 #include <Particle.hpp>
 #include <Mesh.hpp>
 
+static const float MIN_VEL = 0.9f;
+
 typedef std::pair<glm::vec3, float> Impulse;
 
 class Simulation

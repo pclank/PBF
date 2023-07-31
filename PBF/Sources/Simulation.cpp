@@ -67,7 +67,13 @@ void Simulation::CheckCollisionSimple()
 
 			static const glm::vec3 norm(0.0f, 1.0f, 0.0f);
 
-			const float impulse_magnitude = (-(1 + cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm);
+			float custom_cor = cor;
+			if (std::abs(particles[i].velocity.y) <= MIN_VEL)
+			{
+				custom_cor = 0.0f;
+			}
+
+			const float impulse_magnitude = (-(1 + custom_cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm);
 
 			particles[i].velocity += impulse_magnitude * norm;
 		}

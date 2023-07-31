@@ -58,6 +58,9 @@
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Vendor\glad\src\glad.c">
       <Filter>Vendors</Filter>
     </ClCompile>
+    <ClCompile Include="..\PBF\Sources\Border.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Application.hpp">
@@ -126,6 +129,9 @@
     <ClInclude Include="..\PBF\Headers\Physics.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\PBF\Headers\Border.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Repos\Fluid Simulation\CMakeLists.txt" />
@@ -158,6 +164,12 @@
     <None Include="C:\Repos\Fluid Simulation\.gitattributes" />
     <None Include="C:\Repos\Fluid Simulation\.gitignore" />
     <None Include="C:\Repos\Fluid Simulation\README.md" />
+    <None Include="..\PBF\Shaders\line_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\PBF\Shaders\line_shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

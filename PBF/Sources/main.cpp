@@ -9,6 +9,7 @@
 #include <Skybox.hpp>
 #include <Simulation.hpp>
 #include "Application.hpp"
+#include <Border.hpp>
 #include <Physics.hpp>
 
 // System Headers
@@ -102,6 +103,15 @@ int main(int argc, char* argv[])
         .registerShader("Shaders/lighting_shader_simple.frag", GL_FRAGMENT_SHADER)
         .link();
 
+    // create and link line shader
+    Shader lineShader = Shader();
+    lineShader.init();
+
+    lineShader
+        .registerShader("Shaders/line_shader.vert", GL_VERTEX_SHADER)
+        .registerShader("Shaders/line_shader.frag", GL_FRAGMENT_SHADER)
+        .link();
+
     // create and link skybox shader
     Shader skyboxShader = Shader();
     skyboxShader.init();
@@ -128,11 +138,15 @@ int main(int argc, char* argv[])
     // Create Floor Mesh
     Mesh floor("Assets/ca_floor.fbx", &defaultShader);
 
+    // Create Borders
+    Border len_0(0, lineShader);
+    Border len_1(1, lineShader);
+
     // Create Particle Mesh
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(32, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 10.0f, 5.0f, &p_mesh);
+    Simulation sim(64, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 10.0f, 5.0f, &p_mesh);
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
@@ -194,6 +208,10 @@ int main(int argc, char* argv[])
             texture_normalID,
             texture_specularID
         );
+
+        // Draw borders
+        len_0.Render(view, projection);
+        len_1.Render(view, projection);
 
         // Render Mesh
         if (g_renderData.active_asset)

@@ -405,6 +405,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\PBF\Sources\Border.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Application.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\AssetLoader.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Camera.cpp" />
@@ -416,6 +417,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Timer.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Vertex.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\main.cpp" />
+    <ClInclude Include="..\PBF\Headers\Border.hpp" />
     <ClInclude Include="..\PBF\Headers\Physics.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Application.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\AssetLoader.hpp" />
@@ -429,6 +431,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Timer.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Vertex.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\glitter.hpp" />
+    <None Include="..\PBF\Shaders\line_shader.frag" />
+    <None Include="..\PBF\Shaders\line_shader.vert" />
     <None Include="C:\Repos\Fluid Simulation\PBF\Shaders\lighting_shader.frag">
     </None>
     <None Include="C:\Repos\Fluid Simulation\PBF\Shaders\lighting_shader.vert">
