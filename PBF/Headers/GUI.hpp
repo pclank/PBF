@@ -34,6 +34,7 @@ struct SceneSettings
     float scale;
     bool wireframe_mode;
     bool show_skybox;
+    bool wind_effect;
     Asset* active_asset;
 };
 

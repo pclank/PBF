@@ -9,6 +9,7 @@
 #include <Skybox.hpp>
 #include <Simulation.hpp>
 #include "Application.hpp"
+#include <Physics.hpp>
 
 // System Headers
 #include <glad/glad.h>
@@ -33,10 +34,11 @@ static SceneSettings g_renderData =
     { 1.0f, 0.5f, 0.0f },   // default light color
     0.0f,                   // default metallic color
     0.0f,                   // default roughness
-    0.001f,                 // default scale
+    1.0f,                   // default scale
     false,                  // default wireframe mode
     true,                   // default skybox rendering
-    nullptr,                // no active asset at first
+    false,                  // default wind effect
+    nullptr                 // no active asset at first
 };
 
 // Create Camera Object
@@ -130,7 +132,7 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(32, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 2.0f, 5.0f);
+    Simulation sim(32, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 10.0f, 5.0f, &p_mesh);
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
@@ -144,6 +146,16 @@ int main(int argc, char* argv[])
 
         // Process Keyboard Input
         processKeyboardInput(mWindow);
+
+        // Update Positions and Velocities
+        UpdatePosition(sim.particles, g_timer.GetData().DeltaTime);
+        UpdateVelocity(sim.particles, g_timer.GetData().DeltaTime);
+
+        if (g_renderData.wind_effect)
+            sim.RandomWind(0.001f);
+
+        // Collision Detection
+        sim.CheckCollisionSimple();
 
         // Background Fill Color
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -190,39 +202,24 @@ int main(int argc, char* argv[])
             // TODO: Render Obstacle!
         }
 
-        
-
         // Render Particles
-        p_mesh.Render(
-            view,
-            glm::scale(glm::mat4(1.0f), glm::vec3(g_renderData.scale)),
-            projection,
-            g_camera.position,
-            glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
-            glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
-            glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
-            g_renderData.manual_metallic,
-            g_renderData.manual_roughness,
-            texture_diffuseID,
-            texture_normalID,
-            texture_specularID
-        );
-
-        static glm::vec3 s_pos(0.0f ,1.5f, 0.0f);
-        p_mesh.Render(
-            view,
-            glm::scale(glm::translate(glm::mat4(1.0f), s_pos), glm::vec3(g_renderData.scale)),
-            projection,
-            g_camera.position,
-            glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
-            glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
-            glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
-            g_renderData.manual_metallic,
-            g_renderData.manual_roughness,
-            texture_diffuseID,
-            texture_normalID,
-            texture_specularID
-        );
+        for (int i = 0; i < sim.n_particles; i++)
+        {
+            p_mesh.Render(
+                view,
+                glm::scale(glm::translate(glm::mat4(1.0f), sim.particles[i].com), glm::vec3(g_renderData.scale)),
+                projection,
+                g_camera.position,
+                glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
+                glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
+                glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+                g_renderData.manual_metallic,
+                g_renderData.manual_roughness,
+                texture_diffuseID,
+                texture_normalID,
+                texture_specularID
+            );
+        }
         
         // Render GUI
         gui.Render();

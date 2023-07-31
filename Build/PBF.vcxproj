@@ -118,7 +118,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Repos/Fluid Simulation/PBF/Shaders" "C:/Repos/Fluid Simulation/Build/PBF/Debug/Shaders"
 if %errorlevel% neq 0 goto :cmEnd
@@ -182,7 +183,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Repos/Fluid Simulation/PBF/Shaders" "C:/Repos/Fluid Simulation/Build/PBF/Release/Shaders"
 if %errorlevel% neq 0 goto :cmEnd
@@ -246,7 +248,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Repos/Fluid Simulation/PBF/Shaders" "C:/Repos/Fluid Simulation/Build/PBF/MinSizeRel/Shaders"
 if %errorlevel% neq 0 goto :cmEnd
@@ -309,7 +312,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Repos/Fluid Simulation/PBF/Shaders" "C:/Repos/Fluid Simulation/Build/PBF/RelWithDebInfo/Shaders"
 if %errorlevel% neq 0 goto :cmEnd
@@ -412,6 +416,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Timer.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Vertex.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\main.cpp" />
+    <ClInclude Include="..\PBF\Headers\Physics.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Application.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\AssetLoader.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Camera.hpp" />

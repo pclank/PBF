@@ -31,6 +31,8 @@ public:
 	/// <param name="new_shader">: the new Shader</param>
 	void ChangeShader(Shader* new_shader);
 
+	std::vector<Vertex> m_vertices;												// Vertices of Mesh (Vertex struct)
+
 	Shader* getShader();
 	
 private:
@@ -78,7 +80,6 @@ private:
 	/// <returns></returns>
 	inline glm::quat ConvertQuaternionToGLMFormat(const aiQuaternion& src);
 
-	std::vector<Vertex> m_vertices;												// Vertices of Mesh (Vertex struct)
 	std::vector<unsigned int> m_indices;										// Indices for rendering
 	std::vector<Texture> m_textures;											// Textures associated with this mesh
 	std::string dir;															// Mesh directory
