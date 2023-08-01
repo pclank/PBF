@@ -14,13 +14,14 @@ typedef std::pair<glm::vec3, float> Impulse;
 class Simulation
 {
 public:
-	const unsigned int n_particles;
+	unsigned int n_particles;
 	const unsigned int n_cells;
 	const glm::vec3 particle_generation_location;
 	const glm::vec3 grid_generation_location;
 	const float floor_border;
 	const float width_border;
 	const float length_border;
+	const float generation_distance_interval;
 	float sphere_radius;
 	const float cor = 1.0f;
 
@@ -29,7 +30,7 @@ public:
 	std::vector<Particle> particles;
 	std::vector<glm::vec3> grid;
 
-	Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, Mesh* particle_mesh);
+	Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh);
 	~Simulation();
 
 	/// <summary>
@@ -51,6 +52,11 @@ private:
 	/// Generate Particles according to number
 	/// </summary>
 	void GenerateParticles();
+
+	/// <summary>
+	/// Generate Particles according to interval between them
+	/// </summary>
+	void GenerateParticles2();
 
 	/// <summary>
 	/// Generate Grid according to number

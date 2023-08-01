@@ -1,6 +1,8 @@
 #include <Simulation.hpp>
 
-Simulation::Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, Mesh* particle_mesh)
+//#define DEBUG
+
+Simulation::Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh)
 	:
 	n_particles(n_particles),
 	n_cells(n_cells),
@@ -9,9 +11,13 @@ Simulation::Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3
 	floor_border(floor_border),
 	width_border(width_border),
 	length_border(length_border),
+	generation_distance_interval(gen_interval),
 	particle_mesh(particle_mesh)
 {
-	GenerateParticles();
+	if (!distance_gen)
+		GenerateParticles();
+	else
+		GenerateParticles2();
 	CalcSphereRadius();
 }
 
@@ -38,6 +44,41 @@ void Simulation::GenerateParticles()
 	}
 }
 
+void Simulation::GenerateParticles2()
+{
+	const glm::vec3 starting_location(-9.5f, 1.0f, -4.5f);
+
+	const float x_limit = length_border / generation_distance_interval;
+	const float z_limit = width_border / generation_distance_interval;
+	const float y_limit = 4.0f / generation_distance_interval;
+
+	// Length
+	int particle_cnt = 0;
+	for (int x = 0; x < x_limit; x++)
+	{
+		// Width
+		for (int z = 0; z < z_limit; z++)
+		{
+			// Height
+			for (int y = 0; y < y_limit; y++)
+			{
+				glm::vec3 new_location = starting_location + glm::vec3(x, y, z) * generation_distance_interval;
+
+				Particle new_particle;
+				new_particle.com = new_location;
+
+				particle_cnt++;
+
+				particles.push_back(new_particle);
+			}
+		}
+	}
+
+	n_particles = particle_cnt;
+
+	std::cout << "Generated " << particle_cnt << " particles..." << std::endl;
+}
+
 void Simulation::GenerateGrid()
 {
 	std::cout << "Generating " << n_cells << " cells..." << std::endl;
@@ -62,7 +103,9 @@ void Simulation::CheckCollisionSimple()
 		// Check floor collision
 		if (particles[i].com.y - sphere_radius <= floor_border)
 		{
+#ifdef DEBUG
 			std::cout << "Floor collision!" << std::endl;
+#endif // DEBUG
 			const float depth = floor_border - particles[i].com.y - sphere_radius;
 
 			static const glm::vec3 norm(0.0f, 1.0f, 0.0f);
@@ -81,7 +124,9 @@ void Simulation::CheckCollisionSimple()
 		// Check length border collision
 		if (particles[i].com.z - sphere_radius >= length_border || particles[i].com.z - sphere_radius <= -length_border)
 		{
+#ifdef DEBUG
 			std::cout << "Length collision!" << std::endl;
+#endif // DEBUG
 			float depth = length_border - particles[i].com.z - sphere_radius;
 
 			// Find side
@@ -99,7 +144,9 @@ void Simulation::CheckCollisionSimple()
 		// Check width border collision
 		if (particles[i].com.x - sphere_radius >= width_border || particles[i].com.x - sphere_radius <= -width_border)
 		{
+#ifdef DEBUG
 			std::cout << "Width collision!" << std::endl;
+#endif // DEBUG
 			float depth = width_border - particles[i].com.x - sphere_radius;
 
 			glm::vec3 norm;
