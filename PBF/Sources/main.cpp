@@ -147,7 +147,7 @@ int main(int argc, char* argv[])
 
     // Initialize Simulation
     //Simulation sim(128, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 10.0f, 5.0f, 0.2f, false, &p_mesh);
-    Simulation sim(128, 8, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-2.0f, 1.0f, 0.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
+    Simulation sim(128, 2.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
             sim.RandomWind(0.001f);
 
         // Collision Detection
-        sim.CheckCollisionSimple();
+        sim.TickSimulation();
 
         // Background Fill Color
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -231,6 +231,25 @@ int main(int argc, char* argv[])
                 g_camera.position,
                 glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
                 glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
+                glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+                g_renderData.manual_metallic,
+                g_renderData.manual_roughness,
+                texture_diffuseID,
+                texture_normalID,
+                texture_specularID
+            );
+        }
+
+        // Render Cells
+        for (int i = 0; i < sim.n_cells; i++)
+        {
+            p_mesh.Render(
+                view,
+                glm::scale(glm::translate(glm::mat4(1.0f), sim.grid[i].pos), glm::vec3(g_renderData.scale)),
+                projection,
+                g_camera.position,
+                glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
+                glm::vec3(1.0f, 1.0f, 1.0f),
                 glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
                 g_renderData.manual_metallic,
                 g_renderData.manual_roughness,

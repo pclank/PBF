@@ -2,10 +2,10 @@
 
 //#define DEBUG
 
-Simulation::Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh)
+Simulation::Simulation(unsigned int n_particles, float cell_distance, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh)
 	:
 	n_particles(n_particles),
-	n_cells(n_cells),
+	cell_distance(cell_distance),
 	particle_generation_location(particle_generation_location),
 	grid_generation_location(grid_generation_location),
 	floor_border(floor_border),
@@ -18,7 +18,11 @@ Simulation::Simulation(unsigned int n_particles, unsigned int n_cells, glm::vec3
 		GenerateParticles();
 	else
 		GenerateParticles2();
+
+	GenerateGrid();
 	CalcSphereRadius();
+
+	FindNeighbors();
 }
 
 Simulation::~Simulation()
@@ -66,6 +70,7 @@ void Simulation::GenerateParticles2()
 
 				Particle new_particle;
 				new_particle.com = new_location;
+				new_particle.id = particle_cnt;
 
 				particle_cnt++;
 
@@ -81,17 +86,47 @@ void Simulation::GenerateParticles2()
 
 void Simulation::GenerateGrid()
 {
-	std::cout << "Generating " << n_cells << " cells..." << std::endl;
+	const int x_limit = length_border / cell_distance;
+	const int z_limit = width_border / cell_distance;
+	const int y_limit = 4.0f / cell_distance;
 
-	const float x_interval = (2 * length_border) / n_cells;
-	const float y_interval = (2 * width_border) / n_cells;
-
-	// TODO: Can be done in SIMD for no reason!
-	// Generate Cells
-	for (int i = 0; i < n_cells; i++)
+	// Length
+	int cell_cnt = 0;
+	for (int x = 0; x < x_limit; x++)
 	{
-		grid.push_back(glm::vec3(grid_generation_location + glm::vec3(glm::vec3(x_interval * i, particle_generation_location.y, particle_generation_location.z))));
+		// Width
+		for (int z = 0; z < z_limit; z++)
+		{
+			// Height
+			for (int y = 0; y < y_limit; y++)
+			{
+				glm::vec3 new_location = grid_generation_location + glm::vec3(x, y, z) * cell_distance;
+
+				Cell new_cell;
+				new_cell.pos = new_location;
+
+				const unsigned int x_cell = std::floor((new_location.x - grid_generation_location.x) / cell_distance);
+				const unsigned int z_cell = std::floor((new_location.z - grid_generation_location.z) / cell_distance);
+				const unsigned int y_cell = std::floor((new_location.y - grid_generation_location.y) / cell_distance);
+
+				const unsigned int cell_id = x_cell + (z_cell << 8) + (y_cell << 16);
+				cell_map[cell_id] = cell_cnt;
+				grid.push_back(new_cell);
+
+				cell_cnt++;
+			}
+		}
 	}
+
+	n_cells = cell_cnt;
+
+	std::cout << "Generated " << cell_cnt << " cells..." << std::endl;
+}
+
+void Simulation::TickSimulation()
+{
+	CheckCollisionSimple();
+	ParticleCollisionDetection();
 }
 
 void Simulation::CheckCollisionSimple()
@@ -162,6 +197,44 @@ void Simulation::CheckCollisionSimple()
 	}
 }
 
+void Simulation::ParticleCollisionDetection()
+{
+	// Check all particles exhaustively
+	for (int i = 0; i < n_particles; i++)
+	{
+		for (int j = 0; j < n_particles; j++)
+		{
+			// Skip same particles
+			if (i == j)
+				continue;
+
+			const glm::vec3 s = particles[i].com - particles[j].com;
+			const float sq_len = glm::dot(s, s);
+
+			static const float cmp_radius = (2 * sphere_radius) * (2 * sphere_radius);
+			
+			// Check for collision
+			if (sq_len <= cmp_radius)
+			{
+				glm::vec3 norm = glm::normalize(-s);
+
+				glm::vec3 closure_velocity = particles[i].velocity - particles[j].velocity;
+
+				float custom_cor = cor;
+				if (std::abs(closure_velocity.length()) <= 0.0001f)
+				{
+					custom_cor = 0.0f;
+				}
+
+				const float impulse_magnitude = (-(1 + custom_cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm * 2.0f);
+
+				particles[i].velocity += impulse_magnitude * norm;
+				particles[j].velocity -= impulse_magnitude * norm;
+			}
+		}
+	}
+}
+
 void Simulation::RandomWind(float force)
 {
 	for (int i = 0; i < n_particles; i++)
@@ -171,4 +244,41 @@ void Simulation::RandomWind(float force)
 			particles[i].velocity += force * glm::normalize(glm::vec3(rand() % 100, rand() % 100, rand() % 100));
 		}
 	}
+}
+
+void Simulation::FindNeighbors()
+{
+	// TODO: Figure this out!
+	// Clear neighborhoods
+	for (int i = 0; i < n_cells; i++)
+		grid[i].neighbors.clear();
+
+	// Assign Particles to Cells
+	for (int i = 0; i < n_particles; i++)
+	{
+		const unsigned int x_cell = std::floor((particles[i].com.x - grid_generation_location.x) / cell_distance);
+		const unsigned int z_cell = std::floor((particles[i].com.z - grid_generation_location.z) / cell_distance);
+		const unsigned int y_cell = std::floor((particles[i].com.y - grid_generation_location.y) / cell_distance);
+
+		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
+
+		// Assign to Neighborhood
+		grid[cell_map[particles[i].cell]].neighbors.push_back(i);
+
+#ifdef DEBUG
+		std::cout << "Particle " << i << " in cell " << particles[i].cell << std::endl;
+#endif // DEBUG
+	}
+
+#ifdef DEBUG
+	// Print Neighborhoods
+	for (int i = 0; i < n_cells; i++)
+	{
+		std::cout << "Cell " << i << ": " << std::endl;
+		for (int j = 0; j < grid[i].neighbors.size(); j++)
+			std::cout << grid[i].neighbors[j] << " ";
+		std::cout << "\n" << std::endl;
+	}
+#endif // DEBUG
+
 }

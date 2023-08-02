@@ -132,6 +132,9 @@
     <ClInclude Include="..\PBF\Headers\Border.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\PBF\Headers\AuxMath.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Repos\Fluid Simulation\CMakeLists.txt" />

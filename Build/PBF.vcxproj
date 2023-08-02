@@ -417,6 +417,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Timer.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\Vertex.cpp" />
     <ClCompile Include="C:\Repos\Fluid Simulation\PBF\Sources\main.cpp" />
+    <ClInclude Include="..\PBF\Headers\AuxMath.hpp" />
     <ClInclude Include="..\PBF\Headers\Border.hpp" />
     <ClInclude Include="..\PBF\Headers\Physics.hpp" />
     <ClInclude Include="C:\Repos\Fluid Simulation\PBF\Headers\Application.hpp" />
