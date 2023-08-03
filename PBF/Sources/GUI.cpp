@@ -67,7 +67,7 @@ void GUI::Render()
     ImGui::SliderFloat3("Light position", m_sceneSettings.light_position, -5.0f, 5.0f);
     ImGui::SliderFloat("Manual metallic", &m_sceneSettings.manual_metallic, 0.0f, 1.0f);
     ImGui::SliderFloat("Manual roughness", &m_sceneSettings.manual_roughness, 0.0f, 1.0f);
-    ImGui::SliderFloat("Manual scale", &m_sceneSettings.scale, 0.001f, 0.01f);
+    ImGui::SliderFloat("Manual scale", &m_sceneSettings.scale, 1.0f, 5.0f);
     ImGui::Checkbox("Toggle wireframe", &m_sceneSettings.wireframe_mode);
     ImGui::Text("%s", m_cameraMode.c_str());
     if (ImGui::Button("Switch Camera Modes"))

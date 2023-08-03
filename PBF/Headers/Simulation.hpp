@@ -11,12 +11,38 @@
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
 static const float RELAXATION = 0.1f;
+static const float VISCOSITY_C = 0.01f;
+static const unsigned int SOLVER_ITER = 3;
 
 typedef std::pair<glm::vec3, float> Impulse;
 
 struct Cell {
 	glm::vec3 pos = glm::vec3(0.0f);
 	std::vector<unsigned int> neighbors;
+};
+
+// Hardcore Color-table for 20 cell - Visual Debugging
+static const float ColorTable[] = {
+	0.1f, 0.1f, 0.5f,
+	0.2f, 0.1f, 0.5f,
+	0.3f, 0.1f, 0.5f,
+	0.4f, 0.4f, 0.5f,
+	0.5f, 0.1f, 0.5f,
+	0.6f, 0.3f, 0.5f,
+	0.7f, 0.1f, 0.5f,
+	0.8f, 0.1f, 0.5f,
+	0.9f, 0.6f, 0.5f,
+	1.0f, 0.1f, 0.5f,
+	0.1f, 0.1f, 0.9f,
+	0.2f, 0.9f, 0.9f,
+	0.3f, 0.8f, 0.9f,
+	0.4f, 0.7f, 0.9f,
+	0.5f, 0.4f, 0.9f,
+	0.6f, 0.5f, 0.9f,
+	0.7f, 0.3f, 0.9f,
+	0.8f, 0.5f, 0.9f,
+	0.9f, 0.5f, 0.9f,
+	1.0f, 0.5f, 0.9f
 };
 
 class Simulation
@@ -45,7 +71,8 @@ public:
 	/// <summary>
 	/// Handles simulation update per frame
 	/// </summary>
-	void TickSimulation();
+	/// <param name="dt">: delta time</param>
+	void TickSimulation(const float dt);
 
 	/// <summary>
 	/// Function to add random wind effect
@@ -177,5 +204,17 @@ private:
 		}
 
 		return dp / REST_DENSITY;
+	}
+
+	inline glm::vec3 CalculateXSPHViscosity(const Particle p1)
+	{
+		glm::vec3 sum(0.0f);
+		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
+		{
+			const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
+			sum += (particles[grid[cell_map[p1.cell]].neighbors[i]].velocity - p1.velocity) * CalculatePoly6Kernel(distance_vector);
+		}
+
+		return p1.velocity + VISCOSITY_C * sum;
 	}
 };

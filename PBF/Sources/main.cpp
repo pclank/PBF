@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
             sim.RandomWind(0.001f);
 
         // Collision Detection
-        sim.TickSimulation();
+        sim.TickSimulation(g_timer.GetData().DeltaTime);
 
         // Background Fill Color
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -226,11 +226,13 @@ int main(int argc, char* argv[])
         {
             p_mesh.Render(
                 view,
-                glm::scale(glm::translate(glm::mat4(1.0f), sim.particles[i].com), glm::vec3(g_renderData.scale)),
+                //glm::scale(glm::translate(glm::mat4(1.0f), sim.particles[i].com), glm::vec3(g_renderData.scale)),
+                glm::translate(glm::mat4(1.0f), sim.particles[i].com),
                 projection,
                 g_camera.position,
                 glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
-                glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
+                //glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
+                glm::vec3(ColorTable[sim.cell_map[sim.particles[i].cell] * 3], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 1], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 2]),
                 glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
                 g_renderData.manual_metallic,
                 g_renderData.manual_roughness,
