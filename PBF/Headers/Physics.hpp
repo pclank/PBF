@@ -11,8 +11,8 @@ inline void UpdatePosition(std::vector<Particle>& particles, const float dt)
 	// TODO: Can be done in SIMD!
 	for (int i = 0; i < particles.size(); i++)
 	{
-		//particles[i].com += particles[i].velocity * dt;
-		particles[i].pred_com += particles[i].velocity * dt;
+		particles[i].com += particles[i].velocity * dt;
+		//particles[i].pred_com += particles[i].velocity * dt;
 	}
 }
 

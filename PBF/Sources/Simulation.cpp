@@ -125,40 +125,38 @@ void Simulation::GenerateGrid()
 
 void Simulation::TickSimulation(const float dt)
 {
-	// Solver loop
-	unsigned int iter = 0;
-	while (iter < SOLVER_ITER)
-	{
-		// Calculate Lambda
-		for (int i = 0; i < n_particles; i++)
-			particles[i].lambda = CalculateLambda(particles[i]);
+	//// Solver loop
+	//unsigned int iter = 0;
+	//while (iter < SOLVER_ITER)
+	//{
+	//	// Calculate Lambda
+	//	for (int i = 0; i < n_particles; i++)
+	//		particles[i].lambda = CalculateLambda(particles[i]);
 
-		// Calculate the Position Update
-		for (int i = 0; i < n_particles; i++)
-			particles[i].dp = CalculatePositionUpdate(particles[i]);
+	//	// Calculate the Position Update
+	//	for (int i = 0; i < n_particles; i++)
+	//		particles[i].dp = CalculatePositionUpdate(particles[i]);
 
-		// TODO: Stupid collision detection in the loop above can be performed instead!
-		// Perform Collision Detection
-		CheckCollisionSimple();
+	//	// Update Positions
+	//	for (int i = 0; i < n_particles; i++)
+	//		particles[i].pred_com += particles[i].dp;
 
-		// Update Positions
-		for (int i = 0; i < n_particles; i++)
-			particles[i].pred_com += particles[i].dp;
-
-		iter++;
-	}
+	//	iter++;
+	//}
 
 	// Update Particle Data
-	for (int i = 0; i < n_particles; i++)
-	{
-		// Update velocity including XSPH Viscosity
-		particles[i].velocity = CalculateXSPHViscosity(particles[i]) + (particles[i].pred_com - particles[i].com) / dt;
+	//for (int i = 0; i < n_particles; i++)
+	//{
+	//	// Update velocity including XSPH Viscosity
+	//	particles[i].velocity = CalculateXSPHViscosity(particles[i]) + (particles[i].pred_com - particles[i].com) / dt;
 
-		// Update position
-		particles[i].com = particles[i].pred_com;
-	}
+	//	// Update position
+	//	particles[i].com = particles[i].pred_com;
+	//}
 
-	//ParticleCollisionDetection();
+	// Perform Collision Detection
+	CheckCollisionSimple();
+	ParticleCollisionDetection();
 }
 
 void Simulation::CheckCollisionSimple()
