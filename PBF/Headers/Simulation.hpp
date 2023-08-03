@@ -10,7 +10,7 @@
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 0.1f;
+static const float RELAXATION = 0.001f;
 static const float VISCOSITY_C = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 
@@ -105,6 +105,11 @@ private:
 	void CheckCollisionSimple();
 
 	/// <summary>
+	/// Handle border collision in the simplest way
+	/// </summary>
+	void StupidBorderCollision();
+
+	/// <summary>
 	/// Checks for collisions between the particles
 	/// </summary>
 	void ParticleCollisionDetection();
@@ -114,7 +119,6 @@ private:
 	/// </summary>
 	inline void CalcSphereRadius()
 	{
-		//sphere_radius = std::abs(glm::distance(particle_mesh->m_vertices[0].position, particles[0].com));
 		sphere_radius = std::abs(glm::distance(particle_mesh->m_vertices[0].position, glm::vec3(0.0f)));
 		std::cout << "Radius was " << sphere_radius << std::endl;
 	}
@@ -206,6 +210,11 @@ private:
 		return dp / REST_DENSITY;
 	}
 
+	/// <summary>
+	/// Calculate XSPH Viscosity for a particle
+	/// </summary>
+	/// <param name="p1">: the particle</param>
+	/// <returns>: the viscosity vector</returns>
 	inline glm::vec3 CalculateXSPHViscosity(const Particle p1)
 	{
 		glm::vec3 sum(0.0f);

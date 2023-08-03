@@ -86,8 +86,8 @@ void Simulation::GenerateParticles2()
 
 void Simulation::GenerateGrid()
 {
-	const int x_limit = length_border / cell_distance;
-	const int z_limit = width_border / cell_distance;
+	const int x_limit = 2 * length_border / cell_distance;
+	const int z_limit = 2 * width_border / cell_distance;
 	const int y_limit = 4.0f / cell_distance;
 
 	// Length
@@ -137,13 +137,19 @@ void Simulation::TickSimulation(const float dt)
 		for (int i = 0; i < n_particles; i++)
 			particles[i].dp = CalculatePositionUpdate(particles[i]);
 
-		// TODO: Stupid collision detection in the loop above can be performed instead!
 		// Perform Collision Detection
-		CheckCollisionSimple();
+		//CheckCollisionSimple();
+		StupidBorderCollision();
 
 		// Update Positions
 		for (int i = 0; i < n_particles; i++)
+		{
 			particles[i].pred_com += particles[i].dp;
+			if (particles[i].pred_com.y == 0xffffffff)
+			{
+				std::cout << "ERROR!" << std::endl;
+			}
+		}
 
 		iter++;
 	}
@@ -156,6 +162,9 @@ void Simulation::TickSimulation(const float dt)
 
 		// Update position
 		particles[i].com = particles[i].pred_com;
+		if (particles[i].com.y < 0.0f || particles[i].com.y > 10.0f)
+			particles[i].com.y = 1.0f;
+		//std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << std::endl;
 	}
 
 	//ParticleCollisionDetection();
@@ -225,6 +234,36 @@ void Simulation::CheckCollisionSimple()
 			const float impulse_magnitude = (-(1 + cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm);
 
 			particles[i].velocity += impulse_magnitude * norm;
+		}
+	}
+}
+
+void Simulation::StupidBorderCollision()
+{
+	for (int i = 0; i < n_particles; i++)
+	{
+		// Check floor collision
+		if (particles[i].pred_com.y - sphere_radius < floor_border)
+		{
+			particles[i].pred_com.y = floor_border + sphere_radius;
+		}
+
+		if (particles[i].pred_com.z - sphere_radius > length_border)
+		{
+			particles[i].pred_com.z = length_border - sphere_radius;
+		}
+		else if (particles[i].pred_com.z - sphere_radius < -length_border)
+		{
+			particles[i].pred_com.z = -length_border + sphere_radius;
+		}
+
+		if (particles[i].com.x - sphere_radius > width_border)
+		{
+			particles[i].pred_com.x = width_border - sphere_radius;
+		}
+		else if (particles[i].com.x - sphere_radius < -width_border)
+		{
+			particles[i].pred_com.x = -width_border + sphere_radius;
 		}
 	}
 }

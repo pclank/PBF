@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-static const unsigned int rest_density = 1000;
+static const float rest_density = 1000.0f;
 
 // 802.14091318315249227517416739747
 static const float poly6_kernel_const = 802.1409131f;
