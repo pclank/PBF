@@ -10,7 +10,7 @@
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 0.001f;
+static const float RELAXATION = 1000000.0f;
 static const float VISCOSITY_C = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 
@@ -141,7 +141,8 @@ private:
 			if (p1.id == particles[grid[cell_map[p1.cell]].neighbors[i]].id)
 				continue;
 
-			density += CalculatePoly6Kernel(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
+			//density += CalculatePoly6Kernel(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
+			density += CalculatePoly6Kernel(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
 		}
 
 		return density;
@@ -174,7 +175,8 @@ private:
 				glm::vec3 gradient(0.0f);
 				for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
 				{
-					gradient += CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
+					//gradient += CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
+					gradient += CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
 				}
 
 				denominator += glm::dot(gradient / REST_DENSITY, gradient / REST_DENSITY);
@@ -182,7 +184,8 @@ private:
 			else
 			{
 				// TODO: Make sure dot product is okay!
-				const glm::vec3 gradient = CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com) / REST_DENSITY;
+				//const glm::vec3 gradient = CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com) / REST_DENSITY;
+				const glm::vec3 gradient = CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
 
 				denominator -= glm::dot(gradient, gradient);
 			}
@@ -201,7 +204,8 @@ private:
 		glm::vec3 dp(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
-			const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
+			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
+			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			const float first_factor = p1.lambda + particles[grid[cell_map[p1.cell]].neighbors[i]].lambda + CalculateArtificialPressure(distance_vector);
 
 			dp += first_factor * CalculatePoly6Gradient(distance_vector);
@@ -220,7 +224,8 @@ private:
 		glm::vec3 sum(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
-			const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
+			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
+			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			sum += (particles[grid[cell_map[p1.cell]].neighbors[i]].velocity - p1.velocity) * CalculatePoly6Kernel(distance_vector);
 		}
 

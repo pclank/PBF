@@ -50,7 +50,8 @@ void Simulation::GenerateParticles()
 
 void Simulation::GenerateParticles2()
 {
-	const glm::vec3 starting_location(-9.5f, 1.0f, -4.5f);
+	//const glm::vec3 starting_location(-9.5f, 1.0f, -4.5f);
+	const glm::vec3 starting_location(0.0f);
 
 	const float x_limit = length_border / generation_distance_interval;
 	const float z_limit = width_border / generation_distance_interval;
@@ -70,6 +71,7 @@ void Simulation::GenerateParticles2()
 
 				Particle new_particle;
 				new_particle.com = new_location;
+				new_particle.pred_com = new_location;
 				new_particle.id = particle_cnt;
 
 				particle_cnt++;
@@ -86,8 +88,8 @@ void Simulation::GenerateParticles2()
 
 void Simulation::GenerateGrid()
 {
-	const int x_limit = 2 * length_border / cell_distance;
-	const int z_limit = 2 * width_border / cell_distance;
+	const int x_limit = length_border / cell_distance;
+	const int z_limit = width_border / cell_distance;
 	const int y_limit = 4.0f / cell_distance;
 
 	// Length
@@ -105,9 +107,9 @@ void Simulation::GenerateGrid()
 				Cell new_cell;
 				new_cell.pos = new_location;
 
-				const unsigned int x_cell = std::floor((new_location.x - grid_generation_location.x) / cell_distance);
-				const unsigned int z_cell = std::floor((new_location.z - grid_generation_location.z) / cell_distance);
-				const unsigned int y_cell = std::floor((new_location.y - grid_generation_location.y) / cell_distance);
+				const unsigned int x_cell = std::floor((new_location.x) / cell_distance);
+				const unsigned int z_cell = std::floor((new_location.z) / cell_distance);
+				const unsigned int y_cell = std::floor((new_location.y) / cell_distance);
 
 				const unsigned int cell_id = x_cell + (z_cell << 8) + (y_cell << 16);
 				cell_map[cell_id] = cell_cnt;
@@ -125,6 +127,8 @@ void Simulation::GenerateGrid()
 
 void Simulation::TickSimulation(const float dt)
 {
+	FindNeighbors();
+
 	// Solver loop
 	unsigned int iter = 0;
 	while (iter < SOLVER_ITER)
@@ -145,7 +149,7 @@ void Simulation::TickSimulation(const float dt)
 		for (int i = 0; i < n_particles; i++)
 		{
 			particles[i].pred_com += particles[i].dp;
-			if (particles[i].pred_com.y == 0xffffffff)
+			if (particles[i].pred_com.y == (float)0xffffffff)
 			{
 				std::cout << "ERROR!" << std::endl;
 			}
@@ -162,9 +166,9 @@ void Simulation::TickSimulation(const float dt)
 
 		// Update position
 		particles[i].com = particles[i].pred_com;
-		if (particles[i].com.y < 0.0f || particles[i].com.y > 10.0f)
+		if (particles[i].com.y > 10.0f)
 			particles[i].com.y = 1.0f;
-		//std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << std::endl;
+		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << std::endl;
 	}
 
 	//ParticleCollisionDetection();
@@ -252,18 +256,18 @@ void Simulation::StupidBorderCollision()
 		{
 			particles[i].pred_com.z = length_border - sphere_radius;
 		}
-		else if (particles[i].pred_com.z - sphere_radius < -length_border)
+		else if (particles[i].pred_com.z - sphere_radius < 0)
 		{
-			particles[i].pred_com.z = -length_border + sphere_radius;
+			particles[i].pred_com.z = sphere_radius;
 		}
 
-		if (particles[i].com.x - sphere_radius > width_border)
+		if (particles[i].pred_com.x - sphere_radius > width_border)
 		{
 			particles[i].pred_com.x = width_border - sphere_radius;
 		}
-		else if (particles[i].com.x - sphere_radius < -width_border)
+		else if (particles[i].pred_com.x - sphere_radius < 0)
 		{
-			particles[i].pred_com.x = -width_border + sphere_radius;
+			particles[i].pred_com.x = sphere_radius;
 		}
 	}
 }
@@ -319,7 +323,6 @@ void Simulation::RandomWind(float force)
 
 void Simulation::FindNeighbors()
 {
-	// TODO: Figure this out!
 	// Clear neighborhoods
 	for (int i = 0; i < n_cells; i++)
 		grid[i].neighbors.clear();
@@ -327,9 +330,9 @@ void Simulation::FindNeighbors()
 	// Assign Particles to Cells
 	for (int i = 0; i < n_particles; i++)
 	{
-		const unsigned int x_cell = std::floor((particles[i].com.x - grid_generation_location.x) / cell_distance);
-		const unsigned int z_cell = std::floor((particles[i].com.z - grid_generation_location.z) / cell_distance);
-		const unsigned int y_cell = std::floor((particles[i].com.y - grid_generation_location.y) / cell_distance);
+		const unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
+		const unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
+		const unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
 
 		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
 
