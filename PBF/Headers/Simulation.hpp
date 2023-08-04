@@ -6,11 +6,12 @@
 #include <vector>
 #include <Particle.hpp>
 #include <Mesh.hpp>
+#include <Physics.hpp>
 #include <AuxMath.hpp>
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 1000000.0f;
+static const float RELAXATION = 10.0f;
 static const float VISCOSITY_C = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 
@@ -21,7 +22,7 @@ struct Cell {
 	std::vector<unsigned int> neighbors;
 };
 
-// Hardcore Color-table for 20 cell - Visual Debugging
+// Hardcore Color-table for 30 cell - Visual Debugging
 static const float ColorTable[] = {
 	0.1f, 0.1f, 0.5f,
 	0.2f, 0.1f, 0.5f,
@@ -40,6 +41,16 @@ static const float ColorTable[] = {
 	0.5f, 0.4f, 0.9f,
 	0.6f, 0.5f, 0.9f,
 	0.7f, 0.3f, 0.9f,
+	0.7f, 0.6f, 0.9f,
+	0.7f, 0.2f, 0.9f,
+	0.7f, 0.1f, 0.9f,
+	0.7f, 0.0f, 0.9f,
+	0.7f, 0.9f, 0.9f,
+	0.7f, 0.8f, 0.9f,
+	0.2f, 0.9f, 0.9f,
+	0.1f, 0.35f, 0.9f,
+	0.0f, 0.3f, 0.9f,
+	0.6f, 0.25f, 0.9f,
 	0.8f, 0.5f, 0.9f,
 	0.9f, 0.5f, 0.9f,
 	1.0f, 0.5f, 0.9f
@@ -64,6 +75,8 @@ public:
 	std::vector<Particle> particles;
 	std::vector<Cell> grid;
 	std::map<unsigned int, unsigned int> cell_map;				// Maps bit indices to actual vector indices of grid
+
+	bool sim_running = false;
 
 	Simulation(unsigned int n_particles, float cell_size, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh);
 	~Simulation();

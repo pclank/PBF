@@ -53,19 +53,22 @@ void Simulation::GenerateParticles2()
 	//const glm::vec3 starting_location(-9.5f, 1.0f, -4.5f);
 	const glm::vec3 starting_location(0.0f);
 
-	const float x_limit = length_border / generation_distance_interval;
-	const float z_limit = width_border / generation_distance_interval;
+	const float x_limit = width_border / generation_distance_interval;
+	const float z_limit = length_border / generation_distance_interval;
 	const float y_limit = 4.0f / generation_distance_interval;
 
-	// Length
 	int particle_cnt = 0;
-	for (int x = 0; x < x_limit; x++)
+	//for (int x = 0; x < x_limit; x++)
+	// Height
+	for (int y = 0; y < y_limit; y++)
 	{
-		// Width
-		for (int z = 0; z < z_limit; z++)
+		// Length
+		//for (int z = 0; z < z_limit; z++)
+		for (int x = 0; x < x_limit; x++)
 		{
-			// Height
-			for (int y = 0; y < y_limit; y++)
+			// Width
+			//for (int y = 0; y < y_limit; y++)
+			for (int z = 0; z < z_limit; z++)
 			{
 				glm::vec3 new_location = starting_location + glm::vec3(x, y, z) * generation_distance_interval;
 
@@ -88,19 +91,22 @@ void Simulation::GenerateParticles2()
 
 void Simulation::GenerateGrid()
 {
-	const int x_limit = length_border / cell_distance;
-	const int z_limit = width_border / cell_distance;
+	const int x_limit = width_border / cell_distance;
+	const int z_limit = length_border / cell_distance;
 	const int y_limit = 4.0f / cell_distance;
 
-	// Length
+	// Height
 	int cell_cnt = 0;
-	for (int x = 0; x < x_limit; x++)
+	//for (int x = 0; x < x_limit; x++)
+	for (int y = 0; y <= y_limit; y++)
 	{
-		// Width
-		for (int z = 0; z < z_limit; z++)
+		// Length
+		//for (int z = 0; z < z_limit; z++)
+		for (int x = 0; x <= x_limit; x++)
 		{
-			// Height
-			for (int y = 0; y < y_limit; y++)
+			// Width
+			//for (int y = 0; y < y_limit; y++)
+			for (int z = 0; z <= z_limit; z++)
 			{
 				glm::vec3 new_location = grid_generation_location + glm::vec3(x, y, z) * cell_distance;
 
@@ -127,6 +133,10 @@ void Simulation::GenerateGrid()
 
 void Simulation::TickSimulation(const float dt)
 {
+	// Update Positions and Velocities
+	UpdateVelocity(particles, dt);
+	UpdatePosition(particles, dt);
+
 	FindNeighbors();
 
 	// Solver loop
@@ -149,10 +159,6 @@ void Simulation::TickSimulation(const float dt)
 		for (int i = 0; i < n_particles; i++)
 		{
 			particles[i].pred_com += particles[i].dp;
-			if (particles[i].pred_com.y == (float)0xffffffff)
-			{
-				std::cout << "ERROR!" << std::endl;
-			}
 		}
 
 		iter++;
@@ -166,9 +172,9 @@ void Simulation::TickSimulation(const float dt)
 
 		// Update position
 		particles[i].com = particles[i].pred_com;
-		if (particles[i].com.y > 10.0f)
-			particles[i].com.y = 1.0f;
-		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << std::endl;
+		/*if (particles[i].com.y > 10.0f)
+			particles[i].com.y = 1.0f;*/
+		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << cell_map[particles[i].cell] << std::endl;
 	}
 
 	//ParticleCollisionDetection();

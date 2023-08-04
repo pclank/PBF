@@ -10,7 +10,6 @@
 #include <Simulation.hpp>
 #include "Application.hpp"
 #include <Border.hpp>
-#include <Physics.hpp>
 
 // System Headers
 #include <glad/glad.h>
@@ -59,6 +58,8 @@ bool r_down = false;
 // Track Previous Camera Parameters
 float lastX = (float)mWidth / 2.0;
 float lastY = (float)mHeight / 2.0;
+
+Simulation* sim_p;
 
 int main(int argc, char* argv[])
 {
@@ -146,8 +147,9 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(128, 2.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 10.0f, 5.0f, 0.8f, true, &p_mesh);
+    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 10.0f, 5.0f, 0.8f, true, &p_mesh);
     //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
+    sim_p = &sim;
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
@@ -162,15 +164,12 @@ int main(int argc, char* argv[])
         // Process Keyboard Input
         processKeyboardInput(mWindow);
 
-        // Update Positions and Velocities
-        UpdatePosition(sim.particles, g_timer.GetData().DeltaTime);
-        UpdateVelocity(sim.particles, g_timer.GetData().DeltaTime);
-
         if (g_renderData.wind_effect)
             sim.RandomWind(0.001f);
 
-        // Collision Detection
-        sim.TickSimulation(g_timer.GetData().DeltaTime);
+        // Tick Simulation
+        if (sim.sim_running)
+            sim.TickSimulation(g_timer.GetData().DeltaTime);
 
         // Background Fill Color
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -252,7 +251,8 @@ int main(int argc, char* argv[])
                 g_camera.position,
                 glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
                 glm::vec3(1.0f, 1.0f, 1.0f),
-                glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+                //glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+                glm::vec3(1.0f, 1.0f, 1.0f),
                 g_renderData.manual_metallic,
                 g_renderData.manual_roughness,
                 texture_diffuseID,
@@ -304,7 +304,7 @@ void processKeyboardInput(GLFWwindow* window)
     // Start/Pause Simulation
     if (p_down && glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
     {
-        // TODO: Start/Pause Simulation
+        sim_p->sim_running = !sim_p->sim_running;
 
         p_down = false;
     }
