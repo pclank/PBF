@@ -93,36 +93,27 @@ void Simulation::GenerateGrid()
 {
 	const int x_limit = width_border / cell_distance;
 	const int z_limit = length_border / cell_distance;
-	const int y_limit = 4.0f / cell_distance;
 
-	// Height
 	int cell_cnt = 0;
-	//for (int x = 0; x < x_limit; x++)
-	for (int y = 0; y <= y_limit; y++)
+	// Length
+	for (int x = 0; x < x_limit; x++)
 	{
-		// Length
-		//for (int z = 0; z < z_limit; z++)
-		for (int x = 0; x <= x_limit; x++)
+		// Width
+		for (int z = 0; z < z_limit; z++)
 		{
-			// Width
-			//for (int y = 0; y < y_limit; y++)
-			for (int z = 0; z <= z_limit; z++)
-			{
-				glm::vec3 new_location = grid_generation_location + glm::vec3(x, y, z) * cell_distance;
+			glm::vec2 new_location = glm::vec2(grid_generation_location.x, grid_generation_location.z) + glm::vec2(x, z) * cell_distance;
 
-				Cell new_cell;
-				new_cell.pos = new_location;
+			Cell new_cell;
+			new_cell.pos = new_location;
 
-				const unsigned int x_cell = std::floor((new_location.x) / cell_distance);
-				const unsigned int z_cell = std::floor((new_location.z) / cell_distance);
-				const unsigned int y_cell = std::floor((new_location.y) / cell_distance);
+			const unsigned int x_cell = std::floor((new_location.x) / cell_distance);
+			const unsigned int z_cell = std::floor((new_location.y) / cell_distance);
 
-				const unsigned int cell_id = x_cell + (z_cell << 8) + (y_cell << 16);
-				cell_map[cell_id] = cell_cnt;
-				grid.push_back(new_cell);
+			const unsigned int cell_id = x_cell + (z_cell << 8);
+			cell_map[cell_id] = cell_cnt;
+			grid.push_back(new_cell);
 
-				cell_cnt++;
-			}
+			cell_cnt++;
 		}
 	}
 
@@ -342,27 +333,22 @@ void Simulation::FindNeighbors()
 	{
 		unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
 		unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
-		unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
 
 		// Constrain to cells
-		if (particles[i].pred_com.x >= width_border + 1.0f)
-			x_cell = width_border;
-		if (particles[i].pred_com.z >= length_border + 1.0f)
-			z_cell = length_border;
-		if (particles[i].pred_com.y >= 6.0f)
-			y_cell = 5;
+		if (particles[i].pred_com.x >= width_border)
+			x_cell = width_border - 1;
+		if (particles[i].pred_com.z >= length_border)
+			z_cell = length_border - 1;
 
-		if (particles[i].pred_com.y < 0)
-			y_cell = 0;
 		if (particles[i].pred_com.z < 0)
 			z_cell = 0;
 		if (particles[i].pred_com.x < 0)
 			x_cell = 0;
 
-		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
+		particles[i].cell = x_cell + (z_cell << 8);
 
-		if (particles[i].cell > 16777215)
-			std::cout << "WUT?!" << std::endl;
+		/*if (particles[i].cell > 1029)
+			std::cout << "WUT?!" << std::endl;*/
 
 		// Assign to Neighborhood
 		grid[cell_map[particles[i].cell]].neighbors.push_back(i);

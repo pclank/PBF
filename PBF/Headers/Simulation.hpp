@@ -18,7 +18,7 @@ static const unsigned int SOLVER_ITER = 3;
 typedef std::pair<glm::vec3, float> Impulse;
 
 struct Cell {
-	glm::vec3 pos = glm::vec3(0.0f);
+	glm::vec2 pos = glm::vec2(0.0f);
 	std::vector<unsigned int> neighbors;
 };
 

@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
         {
             p_mesh.Render(
                 view,
-                glm::scale(glm::translate(glm::mat4(1.0f), sim.grid[i].pos), glm::vec3(g_renderData.scale)),
+                glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(sim.grid[i].pos.x, 1.0f, sim.grid[i].pos.y)), glm::vec3(g_renderData.scale)),
                 projection,
                 g_camera.position,
                 glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
