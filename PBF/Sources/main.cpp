@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
+    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.5f, true, &p_mesh);
     //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
     sim_p = &sim;
 

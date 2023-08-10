@@ -153,7 +153,7 @@ void Simulation::TickSimulation(const float dt)
 
 		// Perform Collision Detection
 		//CheckCollisionSimple();
-		ParticleCollisionDetection();
+		//ParticleCollisionDetection();
 		StupidBorderCollision();
 
 		// Update Positions
@@ -176,7 +176,7 @@ void Simulation::TickSimulation(const float dt)
 		/*if (particles[i].com.y > 10.0f)
 			particles[i].com.y = 1.0f;*/
 	
-		//std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
+		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
 	}
 
 	//ParticleCollisionDetection();
@@ -345,10 +345,10 @@ void Simulation::FindNeighbors()
 		unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
 
 		// Constrain to cells
-		if (particles[i].pred_com.x >= 11.0f)
-			x_cell = 10;
-		if (particles[i].pred_com.z >= 6.0f)
-			z_cell = 5;
+		if (particles[i].pred_com.x >= width_border + 1.0f)
+			x_cell = width_border;
+		if (particles[i].pred_com.z >= length_border + 1.0f)
+			z_cell = length_border;
 		if (particles[i].pred_com.y >= 6.0f)
 			y_cell = 5;
 
