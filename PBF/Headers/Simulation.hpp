@@ -77,6 +77,7 @@ public:
 	std::map<unsigned int, unsigned int> cell_map;				// Maps bit indices to actual vector indices of grid
 
 	bool sim_running = false;
+	bool step_run = false;										// Run simulation step by step
 
 	Simulation(unsigned int n_particles, float cell_size, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh);
 	~Simulation();

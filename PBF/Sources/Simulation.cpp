@@ -153,6 +153,7 @@ void Simulation::TickSimulation(const float dt)
 
 		// Perform Collision Detection
 		//CheckCollisionSimple();
+		ParticleCollisionDetection();
 		StupidBorderCollision();
 
 		// Update Positions
@@ -174,7 +175,8 @@ void Simulation::TickSimulation(const float dt)
 		particles[i].com = particles[i].pred_com;
 		/*if (particles[i].com.y > 10.0f)
 			particles[i].com.y = 1.0f;*/
-		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << cell_map[particles[i].cell] << std::endl;
+	
+		//std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
 	}
 
 	//ParticleCollisionDetection();
@@ -252,11 +254,13 @@ void Simulation::StupidBorderCollision()
 {
 	for (int i = 0; i < n_particles; i++)
 	{
-		// Check floor collision
+		// Check floor/top collision
 		if (particles[i].pred_com.y - sphere_radius < floor_border)
 		{
 			particles[i].pred_com.y = floor_border + sphere_radius;
 		}
+		else if (particles[i].pred_com.y - sphere_radius > 20.0f)
+			particles[i].pred_com.y = 20.0f - sphere_radius;
 
 		if (particles[i].pred_com.z - sphere_radius > length_border)
 		{
@@ -336,11 +340,29 @@ void Simulation::FindNeighbors()
 	// Assign Particles to Cells
 	for (int i = 0; i < n_particles; i++)
 	{
-		const unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
-		const unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
-		const unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
+		unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
+		unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
+		unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
+
+		// Constrain to cells
+		if (particles[i].pred_com.x >= 11.0f)
+			x_cell = 10;
+		if (particles[i].pred_com.z >= 6.0f)
+			z_cell = 5;
+		if (particles[i].pred_com.y >= 6.0f)
+			y_cell = 5;
+
+		if (particles[i].pred_com.y < 0)
+			y_cell = 0;
+		if (particles[i].pred_com.z < 0)
+			z_cell = 0;
+		if (particles[i].pred_com.x < 0)
+			x_cell = 0;
 
 		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
+
+		if (particles[i].cell > 16777215)
+			std::cout << "WUT?!" << std::endl;
 
 		// Assign to Neighborhood
 		grid[cell_map[particles[i].cell]].neighbors.push_back(i);

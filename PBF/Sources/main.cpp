@@ -54,6 +54,7 @@ bool first_mouse_flag = true;
 bool spacebar_down = false;
 bool p_down = false;
 bool r_down = false;
+bool g_down = false;
 
 // Track Previous Camera Parameters
 float lastX = (float)mWidth / 2.0;
@@ -147,7 +148,7 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 10.0f, 5.0f, 0.8f, true, &p_mesh);
+    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
     //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
     sim_p = &sim;
 
@@ -169,7 +170,12 @@ int main(int argc, char* argv[])
 
         // Tick Simulation
         if (sim.sim_running)
-            sim.TickSimulation(g_timer.GetData().DeltaTime);
+        {
+            if (sim.step_run && g_down)
+                sim.TickSimulation(g_timer.GetData().DeltaTime);
+            else if (!sim.step_run)
+                sim.TickSimulation(g_timer.GetData().DeltaTime);
+        }
 
         // Background Fill Color
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -309,12 +315,18 @@ void processKeyboardInput(GLFWwindow* window)
         p_down = false;
     }
 
-    // Reset Simulation
+    // Toggle Step Simulation
     if (r_down && glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
     {
-        // TODO: Reset Simulation!
+        sim_p->step_run = !sim_p->step_run;
 
         r_down = false;
+    }
+
+    // Run Step Simulation
+    if (g_down && glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE)
+    {
+        g_down = false;
     }
 
     if (!spacebar_down && glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
@@ -325,6 +337,9 @@ void processKeyboardInput(GLFWwindow* window)
 
     if (!r_down && glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         r_down = true;
+
+    if (!g_down && sim_p->step_run && glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+        g_down = true;
 
     // Ignore Keyboard Inputs for Camera Movement if arcball_mode == true
     if (g_camera.arcball_mode)
