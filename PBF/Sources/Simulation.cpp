@@ -167,8 +167,8 @@ void Simulation::TickSimulation(const float dt)
 	for (int i = 0; i < n_particles; i++)
 	{
 		// Update velocity including XSPH Viscosity
-		particles[i].velocity = CalculateXSPHViscosity(particles[i]) + (particles[i].pred_com - particles[i].com) / dt;
-		//particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
+		particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
+		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
 
 		// Update position
 		particles[i].com = particles[i].pred_com;
@@ -259,26 +259,34 @@ void Simulation::StupidBorderCollision()
 		if (particles[i].pred_com.y - sphere_radius < floor_border)
 		{
 			particles[i].pred_com.y = floor_border + sphere_radius;
+			particles[i].velocity.y = -particles[i].velocity.y;
 		}
 		else if (particles[i].pred_com.y - sphere_radius > 20.0f)
+		{
 			particles[i].pred_com.y = 20.0f - sphere_radius;
-
+			particles[i].velocity.y = -particles[i].velocity.y;
+		}
 		if (particles[i].pred_com.z - sphere_radius > length_border)
 		{
 			particles[i].pred_com.z = length_border - sphere_radius;
+			particles[i].velocity.z = -particles[i].velocity.z;
+
 		}
 		else if (particles[i].pred_com.z - sphere_radius < 0)
 		{
 			particles[i].pred_com.z = sphere_radius;
+			particles[i].velocity.z = -particles[i].velocity.z;
 		}
 
 		if (particles[i].pred_com.x - sphere_radius > width_border)
 		{
 			particles[i].pred_com.x = width_border - sphere_radius;
+			particles[i].velocity.x = -particles[i].velocity.x;
 		}
 		else if (particles[i].pred_com.x - sphere_radius < 0)
 		{
 			particles[i].pred_com.x = sphere_radius;
+			particles[i].velocity.x = -particles[i].velocity.x;
 		}
 	}
 }
@@ -347,18 +355,36 @@ void Simulation::FindNeighbors()
 
 		// Constrain to cells
 		if (particles[i].pred_com.x >= width_border)
+		{
 			x_cell = width_border - 1;
+			particles[i].pred_com.x = width_border - 0.1f;
+		}
 		if (particles[i].pred_com.z >= length_border)
+		{
 			z_cell = length_border - 1;
+			particles[i].pred_com.z = length_border - 0.1f;
+		}
 		if (particles[i].pred_com.y >= GRID_HEIGHT)
+		{
 			y_cell = GRID_HEIGHT - 1;
+			particles[i].pred_com.y = GRID_HEIGHT - 0.1f;
+		}
 
 		if (particles[i].pred_com.z < 0)
+		{
 			z_cell = 0;
+			particles[i].pred_com.z = 0.1f;
+		}
 		if (particles[i].pred_com.x < 0)
+		{
 			x_cell = 0;
+			particles[i].pred_com.x = 0.1f;
+		}
 		if (particles[i].pred_com.y < 0)
+		{
 			y_cell = 0;
+			particles[i].pred_com.y = 0.1f;
+		}
 
 		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
 
