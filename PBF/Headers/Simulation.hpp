@@ -8,6 +8,10 @@
 #include <Mesh.hpp>
 #include <Physics.hpp>
 #include <AuxMath.hpp>
+#include <omp.h>
+
+//#define PARALLEL
+#define NEIGH_PARALLEL
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;

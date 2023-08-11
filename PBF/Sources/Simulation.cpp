@@ -142,10 +142,17 @@ void Simulation::TickSimulation(const float dt)
 	while (iter < SOLVER_ITER)
 	{
 		// Calculate Lambda
+		//omp_set_num_threads(10);
+#ifdef PARALLEL
+		#pragma omp parallel for schedule(dynamic)
+#endif
 		for (int i = 0; i < n_particles; i++)
 			particles[i].lambda = CalculateLambda(particles[i]);
 
 		// Calculate the Position Update
+#ifdef PARALLEL
+		#pragma omp parallel for schedule(dynamic)
+#endif
 		for (int i = 0; i < n_particles; i++)
 			particles[i].dp = CalculatePositionUpdate(particles[i]);
 
@@ -155,6 +162,9 @@ void Simulation::TickSimulation(const float dt)
 		StupidBorderCollision();
 
 		// Update Positions
+#ifdef PARALLEL
+		#pragma omp parallel for schedule(dynamic)
+#endif
 		for (int i = 0; i < n_particles; i++)
 		{
 			particles[i].pred_com += particles[i].dp;
@@ -253,6 +263,9 @@ void Simulation::CheckCollisionSimple()
 
 void Simulation::StupidBorderCollision()
 {
+#ifdef PARALLEL
+	#pragma omp parallel for schedule(dynamic)
+#endif // PARALLEL
 	for (int i = 0; i < n_particles; i++)
 	{
 		// Check floor/top collision
@@ -343,10 +356,16 @@ void Simulation::RandomWind(float force)
 void Simulation::FindNeighbors()
 {
 	// Clear neighborhoods
+#ifdef NEIGH_PARALLEL
+#pragma omp parallel for schedule(dynamic)
+#endif
 	for (int i = 0; i < n_cells; i++)
 		grid[i].neighbors.clear();
 
 	// Assign Particles to Cells
+#ifdef NEIGH_PARALLEL
+#pragma omp parallel for schedule(dynamic)
+#endif
 	for (int i = 0; i < n_particles; i++)
 	{
 		unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
@@ -391,8 +410,11 @@ void Simulation::FindNeighbors()
 		/*if (particles[i].cell > 1029)
 			std::cout << "WUT?!" << std::endl;*/
 
-		// Assign to Neighborhood
-		grid[cell_map[particles[i].cell]].neighbors.push_back(i);
+			// Assign to Neighborhood
+		#pragma omp critical
+		{
+			grid[cell_map[particles[i].cell]].neighbors.push_back(i);
+		}
 
 #ifdef DEBUG
 		std::cout << "Particle " << i << " in cell " << particles[i].cell << std::endl;
