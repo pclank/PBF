@@ -14,11 +14,12 @@ static const float REST_DENSITY = 1000.0f;
 static const float RELAXATION = 10.0f;
 static const float VISCOSITY_C = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
+static const int GRID_HEIGHT = 3;
 
 typedef std::pair<glm::vec3, float> Impulse;
 
 struct Cell {
-	glm::vec2 pos = glm::vec2(0.0f);
+	glm::vec3 pos = glm::vec3(0.0f);
 	std::vector<unsigned int> neighbors;
 };
 

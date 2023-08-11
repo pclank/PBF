@@ -96,25 +96,31 @@ void Simulation::GenerateGrid()
 	const int z_limit = length_border / cell_distance;
 
 	int cell_cnt = 0;
-	// Length
-	for (int x = 0; x < x_limit; x++)
+	// Height
+	for (int y = 0; y < GRID_HEIGHT; y++)
 	{
-		// Width
-		for (int z = 0; z < z_limit; z++)
+		// Length
+		for (int x = 0; x < x_limit; x++)
 		{
-			glm::vec2 new_location = glm::vec2(grid_generation_location.x, grid_generation_location.z) + glm::vec2(x, z) * cell_distance;
+			// Width
+			for (int z = 0; z < z_limit; z++)
+			{
+				glm::vec3 new_location = grid_generation_location + glm::vec3(x, y, z) * cell_distance;
 
-			Cell new_cell;
-			new_cell.pos = new_location;
+				Cell new_cell;
+				new_cell.pos = new_location;
 
-			const unsigned int x_cell = std::floor((new_location.x) / cell_distance);
-			const unsigned int z_cell = std::floor((new_location.y) / cell_distance);
+				const unsigned int x_cell = std::floor((new_location.x) / cell_distance);
+				const unsigned int z_cell = std::floor((new_location.z) / cell_distance);
+				const unsigned int y_cell = std::floor((new_location.y) / cell_distance);
 
-			const unsigned int cell_id = x_cell + (z_cell << 8);
-			cell_map[cell_id] = cell_cnt;
-			grid.push_back(new_cell);
+				const unsigned int cell_id = x_cell + (z_cell << 8) + (y_cell << 16);
 
-			cell_cnt++;
+				cell_map[cell_id] = cell_cnt;
+				grid.push_back(new_cell);
+
+				cell_cnt++;
+			}
 		}
 	}
 
@@ -337,19 +343,24 @@ void Simulation::FindNeighbors()
 	{
 		unsigned int x_cell = std::floor((particles[i].pred_com.x) / cell_distance);
 		unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
+		unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
 
 		// Constrain to cells
 		if (particles[i].pred_com.x >= width_border)
 			x_cell = width_border - 1;
 		if (particles[i].pred_com.z >= length_border)
 			z_cell = length_border - 1;
+		if (particles[i].pred_com.y >= GRID_HEIGHT)
+			y_cell = GRID_HEIGHT - 1;
 
 		if (particles[i].pred_com.z < 0)
 			z_cell = 0;
 		if (particles[i].pred_com.x < 0)
 			x_cell = 0;
+		if (particles[i].pred_com.y < 0)
+			y_cell = 0;
 
-		particles[i].cell = x_cell + (z_cell << 8);
+		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
 
 		/*if (particles[i].cell > 1029)
 			std::cout << "WUT?!" << std::endl;*/
