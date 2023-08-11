@@ -16,10 +16,10 @@
 //     #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-const char* mAppName = "Computer Animation";
+const char* mAppName = "ADVANCED FLUIDS!!!???";
 
 // Define Some Constants
-const int mWidth = 1280;
-const int mHeight = 800;
+const int mWidth = 1920;
+const int mHeight = 1080;
 
 #endif //~ Glitter Header

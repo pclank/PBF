@@ -10,7 +10,7 @@
 #include <AuxMath.hpp>
 #include <omp.h>
 
-//#define PARALLEL
+#define PARALLEL
 #define NEIGH_PARALLEL
 
 static const float MIN_VEL = 1.0f;
@@ -152,9 +152,10 @@ private:
 	/// </summary>
 	/// <param name="p1">: the particle</param>
 	/// <returns>: the density</returns>
-	inline float EstimateDensity(const Particle p1)
+	inline float EstimateDensity(const Particle& p1)
 	{
 		float density = 0.0f;
+		//#pragma omp parallel for reduction (+:density)
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
 			if (p1.id == particles[grid[cell_map[p1.cell]].neighbors[i]].id)
@@ -172,7 +173,7 @@ private:
 	/// </summary>
 	/// <param name="p1">: the particle</param>
 	/// <returns>: the density constraint</returns>
-	inline float CalculateDensityConstraint(const Particle p1)
+	inline float CalculateDensityConstraint(const Particle& p1)
 	{
 		return (EstimateDensity(p1) / REST_DENSITY) - 1;
 	}
@@ -182,11 +183,12 @@ private:
 	/// </summary>
 	/// <param name="p1">: the particle</param>
 	/// <returns>: the lambda</returns>
-	inline float CalculateLambda(const Particle p1)
+	inline float CalculateLambda(const Particle& p1)
 	{
 		float denominator = 0.0f;
 
 		// Every particle k in neighborhood
+		//#pragma omp parallel for reduction (+:denominator)
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
 			if (p1.id == particles[grid[cell_map[p1.cell]].neighbors[i]].id)
@@ -220,7 +222,7 @@ private:
 	/// </summary>
 	/// <param name="p1">: the particle</param>
 	/// <returns>: vector dp</returns>
-	inline glm::vec3 CalculatePositionUpdate(const Particle p1)
+	inline glm::vec3 CalculatePositionUpdate(const Particle& p1)
 	{
 		glm::vec3 dp(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
@@ -241,7 +243,7 @@ private:
 	/// </summary>
 	/// <param name="p1">: the particle</param>
 	/// <returns>: the viscosity vector</returns>
-	inline glm::vec3 CalculateXSPHViscosity(const Particle p1)
+	inline glm::vec3 CalculateXSPHViscosity(const Particle& p1)
 	{
 		glm::vec3 sum(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)

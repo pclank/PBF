@@ -37,6 +37,7 @@ static SceneSettings g_renderData =
     1.0f,                   // default scale
     false,                  // default wireframe mode
     true,                   // default skybox rendering
+    0.5f,                   // default wind effect force
     false,                  // default wind effect
     nullptr                 // no active asset at first
 };
@@ -148,7 +149,7 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.25f, true, &p_mesh);
+    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.2f, true, &p_mesh);
     //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
     sim_p = &sim;
 
@@ -165,16 +166,21 @@ int main(int argc, char* argv[])
         // Process Keyboard Input
         processKeyboardInput(mWindow);
 
-        if (g_renderData.wind_effect)
-            sim.RandomWind(0.001f);
-
         // Tick Simulation
         if (sim.sim_running)
         {
             if (sim.step_run && g_down)
+            {
+                if (g_renderData.wind_effect)
+                    sim.RandomWind(g_renderData.wind_force);
                 sim.TickSimulation(g_timer.GetData().DeltaTime);
+            }
             else if (!sim.step_run)
+            {
+                if (g_renderData.wind_effect)
+                    sim.RandomWind(g_renderData.wind_force);
                 sim.TickSimulation(g_timer.GetData().DeltaTime);
+            }
         }
 
         // Background Fill Color

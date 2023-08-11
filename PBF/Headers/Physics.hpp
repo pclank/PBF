@@ -17,7 +17,7 @@ inline void UpdatePosition(std::vector<Particle>& particles, const float dt)
 	}
 }
 
-inline void UpdateVelocity(std::vector<Particle> &particles, const float dt)
+inline void UpdateVelocity(std::vector<Particle>& particles, const float dt)
 {
 	#pragma omp parallel for schedule(dynamic)
 	for (int i = 0; i < particles.size(); i++)

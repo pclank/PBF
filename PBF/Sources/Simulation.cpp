@@ -144,7 +144,7 @@ void Simulation::TickSimulation(const float dt)
 		// Calculate Lambda
 		//omp_set_num_threads(10);
 #ifdef PARALLEL
-		#pragma omp parallel for schedule(dynamic)
+		#pragma omp parallel for
 #endif
 		for (int i = 0; i < n_particles; i++)
 			particles[i].lambda = CalculateLambda(particles[i]);

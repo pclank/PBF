@@ -73,6 +73,7 @@ void GUI::Render()
     if (ImGui::Button("Switch Camera Modes"))
         GuiButtonCallback(GUI_BUTTON::CAMERA_MODE_TOGGLE);
     ImGui::Checkbox("Toggle Skybox", &m_sceneSettings.show_skybox);
+    ImGui::SliderFloat("Wind effect force", &m_sceneSettings.wind_force, 0.1f, 5.0f);
     ImGui::Checkbox("Toggle wind effect", &m_sceneSettings.wind_effect);
     ImGui::End();
 
