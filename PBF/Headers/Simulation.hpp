@@ -190,7 +190,8 @@ private:
 				for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
 				{
 					//gradient += CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
-					gradient += CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
+					//gradient += CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
+					gradient += CalculateSpikyGradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
 				}
 
 				denominator += glm::dot(gradient / REST_DENSITY, gradient / REST_DENSITY);
@@ -199,7 +200,8 @@ private:
 			{
 				// TODO: Make sure dot product is okay!
 				//const glm::vec3 gradient = CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com) / REST_DENSITY;
-				const glm::vec3 gradient = CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
+				//const glm::vec3 gradient = CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
+				const glm::vec3 gradient = CalculateSpikyGradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
 
 				denominator -= glm::dot(gradient, gradient);
 			}
@@ -222,7 +224,8 @@ private:
 			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			const float first_factor = p1.lambda + particles[grid[cell_map[p1.cell]].neighbors[i]].lambda + CalculateArtificialPressure(distance_vector);
 
-			dp += first_factor * CalculatePoly6Gradient(distance_vector);
+			//dp += first_factor * CalculatePoly6Gradient(distance_vector);
+			dp += first_factor * CalculateSpikyGradient(distance_vector);
 		}
 
 		return dp / REST_DENSITY;

@@ -75,7 +75,7 @@ inline glm::vec3 CalculateSpikyGradient(glm::vec3 vector)
 	//if (r >= 0.0f && r <= poly6_radius)
 	if (r >= 0.0f && r <= poly6_radius_squared)
 	{
-		return vector * spiky_gradient_const * (poly6_radius_squared - r) * (poly6_radius_squared - r);
+		return vector * spiky_gradient_const * (poly6_radius - std::sqrtf(r)) * (poly6_radius - std::sqrtf(r));
 	}
 	else
 		return glm::vec3(0.0f);

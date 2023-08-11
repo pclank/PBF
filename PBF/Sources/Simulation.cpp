@@ -1,6 +1,7 @@
 #include <Simulation.hpp>
 
 //#define DEBUG
+//#define PRINT_DEBUG
 
 Simulation::Simulation(unsigned int n_particles, float cell_distance, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh)
 	:
@@ -161,13 +162,16 @@ void Simulation::TickSimulation(const float dt)
 	{
 		// Update velocity including XSPH Viscosity
 		particles[i].velocity = CalculateXSPHViscosity(particles[i]) + (particles[i].pred_com - particles[i].com) / dt;
+		//particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
 
 		// Update position
 		particles[i].com = particles[i].pred_com;
 		/*if (particles[i].com.y > 10.0f)
 			particles[i].com.y = 1.0f;*/
 	
+#ifdef PRINT_DEBUG
 		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
+#endif // PRINT_DEBUG
 	}
 
 	//ParticleCollisionDetection();
