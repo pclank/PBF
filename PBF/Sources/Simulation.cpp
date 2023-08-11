@@ -150,9 +150,7 @@ void Simulation::TickSimulation(const float dt)
 			particles[i].lambda = CalculateLambda(particles[i]);
 
 		// Calculate the Position Update
-#ifdef PARALLEL
 		#pragma omp parallel for schedule(dynamic)
-#endif
 		for (int i = 0; i < n_particles; i++)
 			particles[i].dp = CalculatePositionUpdate(particles[i]);
 
@@ -162,9 +160,7 @@ void Simulation::TickSimulation(const float dt)
 		StupidBorderCollision();
 
 		// Update Positions
-#ifdef PARALLEL
 		#pragma omp parallel for schedule(dynamic)
-#endif
 		for (int i = 0; i < n_particles; i++)
 		{
 			particles[i].pred_com += particles[i].dp;
@@ -263,9 +259,7 @@ void Simulation::CheckCollisionSimple()
 
 void Simulation::StupidBorderCollision()
 {
-#ifdef PARALLEL
 	#pragma omp parallel for schedule(dynamic)
-#endif // PARALLEL
 	for (int i = 0; i < n_particles; i++)
 	{
 		// Check floor/top collision
@@ -274,11 +268,12 @@ void Simulation::StupidBorderCollision()
 			particles[i].pred_com.y = floor_border + sphere_radius;
 			particles[i].velocity.y = -particles[i].velocity.y;
 		}
-		else if (particles[i].pred_com.y - sphere_radius > 20.0f)
+		else if (particles[i].pred_com.y - sphere_radius > 10.0f)
 		{
 			particles[i].pred_com.y = 20.0f - sphere_radius;
 			particles[i].velocity.y = -particles[i].velocity.y;
 		}
+
 		if (particles[i].pred_com.z - sphere_radius > length_border)
 		{
 			particles[i].pred_com.z = length_border - sphere_radius;
@@ -344,6 +339,7 @@ void Simulation::ParticleCollisionDetection()
 
 void Simulation::RandomWind(float force)
 {
+#pragma omp parallel for schedule(dynamic)
 	for (int i = 0; i < n_particles; i++)
 	{
 		if (rand() % 100 < 20)
