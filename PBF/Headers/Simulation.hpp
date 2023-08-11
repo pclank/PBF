@@ -11,7 +11,7 @@
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 10.0f;
+static const float RELAXATION = 10000.0f;
 static const float VISCOSITY_C = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 3;
