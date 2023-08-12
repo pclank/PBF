@@ -12,6 +12,7 @@
 
 #define PARALLEL
 #define NEIGH_PARALLEL
+//#define SPIKY_GRAD
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
@@ -197,8 +198,11 @@ private:
 				for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
 				{
 					//gradient += CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
-					//gradient += CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
+#ifndef SPIKY_GRAD
+					gradient += CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
+#else
 					gradient += CalculateSpikyGradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com);
+#endif // !SPIKY_GRAD
 				}
 
 				denominator += glm::dot(gradient / REST_DENSITY, gradient / REST_DENSITY);
@@ -207,8 +211,11 @@ private:
 			{
 				// TODO: Make sure dot product is okay!
 				//const glm::vec3 gradient = CalculatePoly6Gradient(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com) / REST_DENSITY;
-				//const glm::vec3 gradient = CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
+#ifndef SPIKY_GRAD
+				const glm::vec3 gradient = CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
+#else
 				const glm::vec3 gradient = CalculateSpikyGradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com) / REST_DENSITY;
+#endif // !SPIKY_GRAD
 
 				denominator -= glm::dot(gradient, gradient);
 			}
@@ -230,9 +237,13 @@ private:
 			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
 			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			const float first_factor = p1.lambda + particles[grid[cell_map[p1.cell]].neighbors[i]].lambda + CalculateArtificialPressure(distance_vector);
-
-			//dp += first_factor * CalculatePoly6Gradient(distance_vector);
+			
+#ifndef SPIKY_GRAD
+			dp += first_factor * CalculatePoly6Gradient(distance_vector);
+#else
 			dp += first_factor * CalculateSpikyGradient(distance_vector);
+#endif // !SPIKY_GRAD
+
 		}
 
 		return dp / REST_DENSITY;

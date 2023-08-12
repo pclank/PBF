@@ -43,6 +43,14 @@ inline float CalculatePoly6Kernel(glm::vec3 vector)
 		return 0.0f;
 }
 
+
+inline float CalculatePoly6KernelSCORR()
+{
+	const float r = 0.001225;
+
+	return poly6_kernel_const * (poly6_radius_squared - r) * (poly6_radius_squared - r) * (poly6_radius_squared - r);
+}
+
 /// <summary>
 /// Calculate Poly6 Kernel Gradient (-vector * (945/ 32 * pi * h^9) * (h^2 - r^2)^2)
 /// </summary>
@@ -83,7 +91,8 @@ inline glm::vec3 CalculateSpikyGradient(glm::vec3 vector)
 
 inline float CalculateArtificialPressure(const glm::vec3 vector)
 {
-	const float ratio = CalculatePoly6Kernel(vector) / CalculatePoly6Kernel(corr_dq);
+	//const float ratio = CalculatePoly6Kernel(vector) / CalculatePoly6Kernel(corr_dq);
+	const float ratio = CalculatePoly6Kernel(vector) / CalculatePoly6KernelSCORR();
 
 	// HARDCODED MAGIC!!!
 	return -corr_k * (ratio * ratio * ratio * ratio);
