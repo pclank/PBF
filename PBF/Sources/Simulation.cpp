@@ -20,6 +20,8 @@ Simulation::Simulation(unsigned int n_particles, float cell_distance, glm::vec3 
 	else
 		GenerateParticles2();
 
+	height_border = GRID_HEIGHT * cell_distance;
+
 	GenerateGrid();
 	CalcSphereRadius();
 
@@ -266,35 +268,35 @@ void Simulation::StupidBorderCollision()
 		// Check floor/top collision
 		if (particles[i].pred_com.y - sphere_radius < floor_border)
 		{
-			particles[i].pred_com.y = floor_border + sphere_radius;
+			particles[i].pred_com.y = floor_border + sphere_radius + BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.y = -particles[i].velocity.y;
 		}
-		else if (particles[i].pred_com.y - sphere_radius > 10.0f)
+		else if (particles[i].pred_com.y - sphere_radius > height_border)
 		{
-			particles[i].pred_com.y = 20.0f - sphere_radius;
+			particles[i].pred_com.y = height_border - sphere_radius - BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.y = -particles[i].velocity.y;
 		}
 
 		if (particles[i].pred_com.z - sphere_radius > length_border)
 		{
-			particles[i].pred_com.z = length_border - sphere_radius;
+			particles[i].pred_com.z = length_border - sphere_radius + BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.z = -particles[i].velocity.z;
 
 		}
 		else if (particles[i].pred_com.z - sphere_radius < 0)
 		{
-			particles[i].pred_com.z = sphere_radius;
+			particles[i].pred_com.z = sphere_radius - BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.z = -particles[i].velocity.z;
 		}
 
 		if (particles[i].pred_com.x - sphere_radius > width_border)
 		{
-			particles[i].pred_com.x = width_border - sphere_radius;
+			particles[i].pred_com.x = width_border - sphere_radius + BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.x = -particles[i].velocity.x;
 		}
 		else if (particles[i].pred_com.x - sphere_radius < 0)
 		{
-			particles[i].pred_com.x = sphere_radius;
+			particles[i].pred_com.x = sphere_radius - BORDER_COLLISION_INTERVAL;
 			particles[i].velocity.x = -particles[i].velocity.x;
 		}
 	}

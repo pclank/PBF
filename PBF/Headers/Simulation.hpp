@@ -16,13 +16,14 @@
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 10000.0f;
+static const float RELAXATION = 10.0f;
 static const float VISCOSITY_C = 0.01f;
 static const float FLUID_DENSITY = 800.0f;
 static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
 static const float VORTICITY_COEFF = 1.0f;
 static const unsigned int SOLVER_ITER = 3;
-static const int GRID_HEIGHT = 3;
+static const int GRID_HEIGHT = 5;
+static const float BORDER_COLLISION_INTERVAL = 0.1f;
 
 typedef std::pair<glm::vec3, float> Impulse;
 
@@ -77,6 +78,7 @@ public:
 	const float length_border;
 	const float generation_distance_interval;
 	float sphere_radius;
+	float height_border;
 	const float cor = 1.0f;
 
 	const Mesh* particle_mesh;
@@ -276,6 +278,7 @@ private:
 		omegas.reserve(n_particles);
 
 		// For all particles calculate vorticity
+		#pragma omp parallel for
 		for (int i = 0; i < n_particles; i++)
 		{
 			glm::vec3 omega(0.0f);
@@ -294,6 +297,7 @@ private:
 		}
 
 		// For all particles calculate eta
+		#pragma omp parallel for
 		for (int i = 0; i < n_particles; i++)
 		{
 			glm::vec3 eta(0.0f);
