@@ -12,12 +12,15 @@
 
 #define PARALLEL
 #define NEIGH_PARALLEL
-//#define SPIKY_GRAD
+#define SPIKY_GRAD
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
 static const float RELAXATION = 10000.0f;
 static const float VISCOSITY_C = 0.01f;
+static const float FLUID_DENSITY = 800.0f;
+static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
+static const float VORTICITY_COEFF = 1.0f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 3;
 
@@ -265,5 +268,49 @@ private:
 		}
 
 		return p1.velocity + VISCOSITY_C * sum;
+	}
+
+	inline void CalculateVorticityForce()
+	{
+		std::vector<glm::vec3> omegas;
+		omegas.reserve(n_particles);
+
+		// For all particles calculate vorticity
+		for (int i = 0; i < n_particles; i++)
+		{
+			glm::vec3 omega(0.0f);
+			for (int j = 0; j < grid[cell_map[particles[i].cell]].neighbors.size(); j++)
+			{
+#ifndef SPIKY_GRAD
+				const glm::vec3 gradient = CalculatePoly6Gradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
+#else
+				const glm::vec3 gradient = CalculateSpikyGradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
+#endif // !SPIKY_GRAD
+
+				omega -= (grid[cell_map[particles[i].cell]].neighbors.size() / FLUID_DENSITY) * glm::cross(particles[i].velocity - particles[grid[cell_map[particles[i].cell]].neighbors[j]].velocity, gradient);
+			}
+
+			omegas[i] = omega;
+		}
+
+		// For all particles calculate eta
+		for (int i = 0; i < n_particles; i++)
+		{
+			glm::vec3 eta(0.0f);
+			for (int j = 0; j < grid[cell_map[particles[i].cell]].neighbors.size(); j++)
+			{
+#ifndef SPIKY_GRAD
+				const glm::vec3 gradient = CalculatePoly6Gradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
+#else
+				const glm::vec3 gradient = CalculateSpikyGradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
+#endif // !SPIKY_GRAD
+
+				eta += (grid[cell_map[particles[i].cell]].neighbors.size() / FLUID_DENSITY) * glm::normalize(omegas[i]) * gradient;
+			}
+
+			eta = glm::normalize(eta);
+
+			particles[i].vorticity_force = VORTICITY_COEFF * glm::cross(eta, omegas[i]);
+		}
 	}
 };

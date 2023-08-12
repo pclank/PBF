@@ -15,4 +15,5 @@ struct Particle
 	unsigned int cell = 0xFFFFFFFF;
 	float lambda = 0.0f;
 	glm::vec3 dp = glm::vec3(0.0f);
+	glm::vec3 vorticity_force = glm::vec3(0.0f);
 };

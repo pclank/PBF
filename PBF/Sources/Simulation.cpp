@@ -174,6 +174,7 @@ void Simulation::TickSimulation(const float dt)
 	{
 		// Update velocity including XSPH Viscosity
 		particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
+		particles[i].velocity += particles[i].vorticity_force * dt;
 		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
 
 		// Update position

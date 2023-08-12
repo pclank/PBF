@@ -12,7 +12,7 @@
 //static const float poly6_radius_squared = 0.25f;
 
 // Kernel Constants
-static const float poly6_radius = 3.0f;
+static const float poly6_radius = 2.0f;
 static const float poly6_kernel_const = 315 / (64 * PI * powf(poly6_radius, 9));
 static const float poly6_gradient_const = -945 / (32 * PI * powf(poly6_radius, 9));
 static const float poly6_radius_squared = poly6_radius * poly6_radius;
