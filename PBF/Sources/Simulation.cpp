@@ -166,6 +166,9 @@ void Simulation::TickSimulation(const float dt)
 		#pragma omp parallel for
 		for (int i = 0; i < n_particles; i++)
 		{
+			if (particles[i].dp.y > 5.0f)
+				std::cout << particles[i].dp.y << std::endl;
+
 			particles[i].pred_com += particles[i].dp;
 		}
 

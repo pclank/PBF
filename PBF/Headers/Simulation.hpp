@@ -1,5 +1,6 @@
 #pragma once
 
+#define NOMINMAX
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 #include <iostream>
@@ -234,7 +235,9 @@ private:
 		float sum_grad_C2 = 0.0f;
 		glm::vec3 gradC_i(0.0f);
 
-		const float C = CalculateDensityConstraint(p1);
+		//const float C = CalculateDensityConstraint(p1);
+		const float C = std::max(CalculateDensityConstraint(p1) - 1.0f, 0.0f);			// clamp to prevent particle clumping at surface
+
 		if (C == 0.0f)
 		{
 			return 0.0f;
