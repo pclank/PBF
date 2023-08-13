@@ -149,10 +149,11 @@ void Simulation::TickSimulation(const float dt)
 		#pragma omp parallel for
 #endif
 		for (int i = 0; i < n_particles; i++)
-			particles[i].lambda = CalculateLambda(particles[i]);
+			//particles[i].lambda = CalculateLambda(particles[i]);
+			particles[i].lambda = CalculateLambda2(particles[i]);
 
 		// Calculate the Position Update
-		#pragma omp parallel for schedule(dynamic)
+		#pragma omp parallel for
 		for (int i = 0; i < n_particles; i++)
 			particles[i].dp = CalculatePositionUpdate(particles[i]);
 
@@ -162,7 +163,7 @@ void Simulation::TickSimulation(const float dt)
 		StupidBorderCollision();
 
 		// Update Positions
-		#pragma omp parallel for schedule(dynamic)
+		#pragma omp parallel for
 		for (int i = 0; i < n_particles; i++)
 		{
 			particles[i].pred_com += particles[i].dp;

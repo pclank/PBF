@@ -164,7 +164,7 @@ private:
 		//#pragma omp parallel for reduction (+:density)
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
-			if (p1.id == particles[grid[cell_map[p1.cell]].neighbors[i]].id)
+			if (p1.id == grid[cell_map[p1.cell]].neighbors[i])
 				continue;
 
 			//density += CalculatePoly6Kernel(p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com);
@@ -197,7 +197,7 @@ private:
 		//#pragma omp parallel for reduction (+:denominator)
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
-			if (p1.id == particles[grid[cell_map[p1.cell]].neighbors[i]].id)
+			if (p1.id == grid[cell_map[p1.cell]].neighbors[i])
 			{
 				glm::vec3 gradient(0.0f);
 				for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
@@ -227,6 +227,37 @@ private:
 		}
 
 		return -CalculateDensityConstraint(p1) / (denominator + RELAXATION);
+	}
+
+	inline float CalculateLambda2(const Particle& p1)
+	{
+		float sum_grad_C2 = 0.0f;
+		glm::vec3 gradC_i(0.0f);
+
+		const float C = CalculateDensityConstraint(p1);
+		if (C == 0.0f)
+		{
+			return 0.0f;
+		}
+
+		// Every particle k in neighborhood
+		for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
+		{
+#ifndef SPIKY_GRAD
+			const glm::vec3 gradC_j = -(float)grid[cell_map[p1.cell]].neighbors.size() * CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[j]].pred_com);
+#else
+			const glm::vec3 gradC_j = -(float)grid[cell_map[p1.cell]].neighbors.size() * CalculateSpikyGradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[j]].pred_com);
+#endif // !SPIKY_GRAD
+			
+			sum_grad_C2 += glm::dot(gradC_j / REST_DENSITY, gradC_j / REST_DENSITY);
+			gradC_i -= gradC_j / REST_DENSITY;
+		}
+
+		sum_grad_C2 += glm::dot(gradC_i, gradC_i);
+
+		//denominator = glm::dot(gradient / REST_DENSITY, gradient / REST_DENSITY);
+
+		return -C / (sum_grad_C2 + RELAXATION);
 	}
 
 	/// <summary>
