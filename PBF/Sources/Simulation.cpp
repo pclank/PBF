@@ -149,13 +149,19 @@ void Simulation::TickSimulation(const float dt)
 		#pragma omp parallel for
 #endif
 		for (int i = 0; i < n_particles; i++)
+		{
 			//particles[i].lambda = CalculateLambda(particles[i]);
 			particles[i].lambda = CalculateLambda2(particles[i]);
+			if (isnan(particles[i].lambda))
+				std::cout << "NAN" << std::endl;
+		}
 
 		// Calculate the Position Update
+#ifdef PARALLEL
 		#pragma omp parallel for
+#endif
 		for (int i = 0; i < n_particles; i++)
-			particles[i].dp = CalculatePositionUpdate(particles[i]);
+			particles[i].dp = smooth_factor * CalculatePositionUpdate(particles[i]);
 
 		// Perform Collision Detection
 		//CheckCollisionSimple();
@@ -163,12 +169,11 @@ void Simulation::TickSimulation(const float dt)
 		StupidBorderCollision();
 
 		// Update Positions
+#ifdef PARALLEL
 		#pragma omp parallel for
+#endif
 		for (int i = 0; i < n_particles; i++)
 		{
-			if (particles[i].dp.y > 5.0f)
-				std::cout << particles[i].dp.y << std::endl;
-
 			particles[i].pred_com += particles[i].dp;
 		}
 
@@ -183,10 +188,7 @@ void Simulation::TickSimulation(const float dt)
 		particles[i].velocity += particles[i].vorticity_force * dt;
 		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
 
-		// Update position
 		particles[i].com = particles[i].pred_com;
-		/*if (particles[i].com.y > 10.0f)
-			particles[i].com.y = 1.0f;*/
 	
 #ifdef PRINT_DEBUG
 		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
@@ -266,42 +268,67 @@ void Simulation::CheckCollisionSimple()
 
 void Simulation::StupidBorderCollision()
 {
-	#pragma omp parallel for schedule(dynamic)
+#ifdef PARALLEL
+	#pragma omp parallel for
+#endif
 	for (int i = 0; i < n_particles; i++)
 	{
 		// Check floor/top collision
 		if (particles[i].pred_com.y - sphere_radius < floor_border)
 		{
 			particles[i].pred_com.y = floor_border + sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.y = -particles[i].velocity.y;
+#else
+			particles[i].velocity.y = 0.0f;
+#endif
 		}
-		else if (particles[i].pred_com.y - sphere_radius > height_border)
+		else if (particles[i].pred_com.y + sphere_radius > height_border)
 		{
 			particles[i].pred_com.y = height_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.y = -particles[i].velocity.y;
+#else
+			particles[i].velocity.y = 0.0f;
+#endif
 		}
 
-		if (particles[i].pred_com.z - sphere_radius > length_border)
+		if (particles[i].pred_com.z + sphere_radius > length_border)
 		{
-			particles[i].pred_com.z = length_border - sphere_radius + BORDER_COLLISION_INTERVAL;
+			particles[i].pred_com.z = length_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.z = -particles[i].velocity.z;
-
+#else
+			particles[i].velocity.z = 0.0f;
+#endif
 		}
 		else if (particles[i].pred_com.z - sphere_radius < 0)
 		{
-			particles[i].pred_com.z = sphere_radius - BORDER_COLLISION_INTERVAL;
+			particles[i].pred_com.z = sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.z = -particles[i].velocity.z;
+#else
+			particles[i].velocity.z = 0.0f;
+#endif
 		}
 
-		if (particles[i].pred_com.x - sphere_radius > width_border)
+		if (particles[i].pred_com.x + sphere_radius > width_border)
 		{
-			particles[i].pred_com.x = width_border - sphere_radius + BORDER_COLLISION_INTERVAL;
+			particles[i].pred_com.x = width_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.x = -particles[i].velocity.x;
+#else
+			particles[i].velocity.x = 0.0f;
+#endif
 		}
 		else if (particles[i].pred_com.x - sphere_radius < 0)
 		{
-			particles[i].pred_com.x = sphere_radius - BORDER_COLLISION_INTERVAL;
+			particles[i].pred_com.x = sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef NULLIFY_VELOCITY
 			particles[i].velocity.x = -particles[i].velocity.x;
+#else
+			particles[i].velocity.x = 0.0f;
+#endif
 		}
 	}
 }
@@ -346,7 +373,9 @@ void Simulation::ParticleCollisionDetection()
 
 void Simulation::RandomWind(float force)
 {
-#pragma omp parallel for schedule(dynamic)
+#ifdef PARALLEL
+	#pragma omp parallel for
+#endif
 	for (int i = 0; i < n_particles; i++)
 	{
 		if (rand() % 100 < 20)
@@ -360,14 +389,14 @@ void Simulation::FindNeighbors()
 {
 	// Clear neighborhoods
 #ifdef NEIGH_PARALLEL
-#pragma omp parallel for schedule(dynamic)
+	#pragma omp parallel for
 #endif
 	for (int i = 0; i < n_cells; i++)
 		grid[i].neighbors.clear();
 
 	// Assign Particles to Cells
 #ifdef NEIGH_PARALLEL
-#pragma omp parallel for schedule(dynamic)
+	#pragma omp parallel for
 #endif
 	for (int i = 0; i < n_particles; i++)
 	{
@@ -375,49 +404,55 @@ void Simulation::FindNeighbors()
 		unsigned int z_cell = std::floor((particles[i].pred_com.z) / cell_distance);
 		unsigned int y_cell = std::floor((particles[i].pred_com.y) / cell_distance);
 
+#ifdef CONSTRAIN_CELLS
 		// Constrain to cells
 		if (particles[i].pred_com.x >= width_border)
 		{
 			x_cell = width_border - 1;
-			particles[i].pred_com.x = width_border - 0.1f;
+			particles[i].pred_com.x = width_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
+		else if (particles[i].pred_com.x < 0)
+		{
+			x_cell = 0;
+			particles[i].pred_com.x = BORDER_COLLISION_INTERVAL + sphere_radius;
+		}
+
 		if (particles[i].pred_com.z >= length_border)
 		{
 			z_cell = length_border - 1;
-			particles[i].pred_com.z = length_border - 0.1f;
+			particles[i].pred_com.z = length_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
-		if (particles[i].pred_com.y >= GRID_HEIGHT)
-		{
-			y_cell = GRID_HEIGHT - 1;
-			particles[i].pred_com.y = GRID_HEIGHT - 0.1f;
-		}
-
-		if (particles[i].pred_com.z < 0)
+		else if (particles[i].pred_com.z < 0)
 		{
 			z_cell = 0;
-			particles[i].pred_com.z = 0.1f;
+			particles[i].pred_com.z = BORDER_COLLISION_INTERVAL + sphere_radius;
 		}
-		if (particles[i].pred_com.x < 0)
+
+		if (particles[i].pred_com.y >= height_border)
 		{
-			x_cell = 0;
-			particles[i].pred_com.x = 0.1f;
+			y_cell = GRID_HEIGHT - 1;
+			particles[i].pred_com.y = height_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
-		if (particles[i].pred_com.y < 0)
+		else if (particles[i].pred_com.y < floor_border)
 		{
 			y_cell = 0;
-			particles[i].pred_com.y = 0.1f;
+			particles[i].pred_com.y = floor_border + BORDER_COLLISION_INTERVAL + sphere_radius;
 		}
+#endif
+
 
 		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
 
 		/*if (particles[i].cell > 1029)
 			std::cout << "WUT?!" << std::endl;*/
 
-			// Assign to Neighborhood
+		// Assign to Neighborhood
+#ifdef NEIGH_PARALLEL
 		#pragma omp critical
 		{
 			grid[cell_map[particles[i].cell]].neighbors.push_back(i);
 		}
+#endif
 
 #ifdef DEBUG
 		std::cout << "Particle " << i << " in cell " << particles[i].cell << std::endl;

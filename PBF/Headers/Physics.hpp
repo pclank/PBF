@@ -8,7 +8,7 @@ const float GRAV = -0.980665f;
 
 inline void UpdatePosition(std::vector<Particle>& particles, const float dt)
 {
-	#pragma omp parallel for schedule(dynamic)
+	#pragma omp parallel for
 	for (int i = 0; i < particles.size(); i++)
 	{
 		//particles[i].com += particles[i].velocity * dt;
@@ -19,7 +19,7 @@ inline void UpdatePosition(std::vector<Particle>& particles, const float dt)
 
 inline void UpdateVelocity(std::vector<Particle>& particles, const float dt)
 {
-	#pragma omp parallel for schedule(dynamic)
+	#pragma omp parallel for
 	for (int i = 0; i < particles.size(); i++)
 	{
 		particles[i].prev_velocity = particles[i].velocity;

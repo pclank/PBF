@@ -12,7 +12,7 @@
 //static const float poly6_radius_squared = 0.25f;
 
 // Kernel Constants
-static const float poly6_radius = 0.8f;
+static const float poly6_radius = 1.0f;
 static const float poly6_kernel_const = 315 / (64 * PI * powf(poly6_radius, 9));
 static const float poly6_gradient_const = -945 / (32 * PI * powf(poly6_radius, 9));
 static const float poly6_radius_squared = poly6_radius * poly6_radius;
@@ -35,7 +35,7 @@ inline float CalculatePoly6Kernel(glm::vec3 vector)
 
 	// Zero check
 	//if (r >= 0.0f && r <= poly6_radius)
-	if (r >= 0.0f && r <= poly6_radius_squared)
+	if (r <= poly6_radius_squared)
 	{
 		return poly6_kernel_const * (poly6_radius_squared - r) * (poly6_radius_squared - r) * (poly6_radius_squared - r);
 	}
@@ -62,7 +62,7 @@ inline glm::vec3 CalculatePoly6Gradient(glm::vec3 vector)
 
 	// Zero check
 	//if (r >= 0.0f && r <= poly6_radius)
-	if (r >= 0.0f && r <= poly6_radius_squared)
+	if (r <= poly6_radius_squared)
 	{
 		return vector * poly6_gradient_const * (poly6_radius_squared - r) * (poly6_radius_squared - r);
 	}
@@ -81,7 +81,7 @@ inline glm::vec3 CalculateSpikyGradient(glm::vec3 vector)
 
 	// Zero check
 	//if (r >= 0.0f && r <= poly6_radius)
-	if (r >= 0.0f && r <= poly6_radius_squared)
+	if (r <= poly6_radius_squared)
 	{
 		return vector * spiky_gradient_const * (poly6_radius - std::sqrtf(r)) * (poly6_radius - std::sqrtf(r));
 	}

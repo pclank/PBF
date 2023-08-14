@@ -13,18 +13,23 @@
 
 #define PARALLEL
 #define NEIGH_PARALLEL
+#define IGNORE_SELF
+//#define CONSTRAIN_CELLS
 #define SPIKY_GRAD
+#define NULLIFY_VELOCITY
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 10.0f;
+static const float RELAXATION = 0.01f;
 static const float VISCOSITY_C = 0.01f;
-static const float FLUID_DENSITY = 800.0f;
+//static const float FLUID_DENSITY = 800.0f;
+static const float FLUID_DENSITY = REST_DENSITY;
 static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
 static const float VORTICITY_COEFF = 1.0f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 5;
 static const float BORDER_COLLISION_INTERVAL = 0.1f;
+static const float smooth_factor = 1.0f;
 
 typedef std::pair<glm::vec3, float> Impulse;
 
@@ -182,7 +187,7 @@ private:
 	/// <returns>: the density constraint</returns>
 	inline float CalculateDensityConstraint(const Particle& p1)
 	{
-		return (EstimateDensity(p1) / REST_DENSITY) - 1;
+		return (EstimateDensity(p1) / REST_DENSITY) - 1.0f;
 	}
 
 	/// <summary>
@@ -243,9 +248,14 @@ private:
 			return 0.0f;
 		}
 
-		// Every particle k in neighborhood
+		// Every particle j in neighborhood
 		for (int j = 0; j < grid[cell_map[p1.cell]].neighbors.size(); j++)
 		{
+#ifdef IGNORE_SELF
+			if (p1.id == grid[cell_map[p1.cell]].neighbors[j])
+				continue;
+#endif
+
 #ifndef SPIKY_GRAD
 			const glm::vec3 gradC_j = -(float)grid[cell_map[p1.cell]].neighbors.size() * CalculatePoly6Gradient(p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[j]].pred_com);
 #else
@@ -254,11 +264,11 @@ private:
 			
 			sum_grad_C2 += glm::dot(gradC_j / REST_DENSITY, gradC_j / REST_DENSITY);
 			gradC_i -= gradC_j / REST_DENSITY;
+			//sum_grad_C2 += glm::dot(gradC_j, gradC_j);
+			//gradC_i -= gradC_j;
 		}
 
 		sum_grad_C2 += glm::dot(gradC_i, gradC_i);
-
-		//denominator = glm::dot(gradient / REST_DENSITY, gradient / REST_DENSITY);
 
 		return -C / (sum_grad_C2 + RELAXATION);
 	}
@@ -273,6 +283,11 @@ private:
 		glm::vec3 dp(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
+#ifdef IGNORE_SELF
+			if (p1.id == grid[cell_map[p1.cell]].neighbors[i])
+				continue;
+#endif
+
 			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
 			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			const float first_factor = p1.lambda + particles[grid[cell_map[p1.cell]].neighbors[i]].lambda + CalculateArtificialPressure(distance_vector);
@@ -298,6 +313,11 @@ private:
 		glm::vec3 sum(0.0f);
 		for (int i = 0; i < grid[cell_map[p1.cell]].neighbors.size(); i++)
 		{
+#ifdef IGNORE_SELF
+			if (p1.id == grid[cell_map[p1.cell]].neighbors[i])
+				continue;
+#endif
+
 			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
 			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
 			sum += (particles[grid[cell_map[p1.cell]].neighbors[i]].velocity - p1.velocity) * CalculatePoly6Kernel(distance_vector);
@@ -312,12 +332,19 @@ private:
 		omegas.reserve(n_particles);
 
 		// For all particles calculate vorticity
+#ifdef PARALLEL
 		#pragma omp parallel for
+#endif
 		for (int i = 0; i < n_particles; i++)
 		{
 			glm::vec3 omega(0.0f);
 			for (int j = 0; j < grid[cell_map[particles[i].cell]].neighbors.size(); j++)
 			{
+#ifdef IGNORE_SELF
+				if (i == grid[cell_map[particles[i].cell]].neighbors[j])
+					continue;
+#endif
+
 #ifndef SPIKY_GRAD
 				const glm::vec3 gradient = CalculatePoly6Gradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
 #else
@@ -337,6 +364,11 @@ private:
 			glm::vec3 eta(0.0f);
 			for (int j = 0; j < grid[cell_map[particles[i].cell]].neighbors.size(); j++)
 			{
+#ifdef IGNORE_SELF
+				if (i == grid[cell_map[particles[i].cell]].neighbors[j])
+					continue;
+#endif
+
 #ifndef SPIKY_GRAD
 				const glm::vec3 gradient = CalculatePoly6Gradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
 #else
