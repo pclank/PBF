@@ -11,14 +11,14 @@
 #include <AuxMath.hpp>
 #include <omp.h>
 
-//#define PARALLEL
+#define PARALLEL
 #define NEIGH_PARALLEL
 #define IGNORE_SELF
 #define CONSTRAIN_CELLS
 #define SPIKY_GRAD
 #define NULLIFY_VELOCITY
 //#define VORTICITY
-//#define VISCOSITY
+#define VISCOSITY
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
@@ -322,10 +322,10 @@ private:
 
 			//const glm::vec3 distance_vector = p1.com - particles[grid[cell_map[p1.cell]].neighbors[i]].com;
 			const glm::vec3 distance_vector = p1.pred_com - particles[grid[cell_map[p1.cell]].neighbors[i]].pred_com;
-			sum += (particles[grid[cell_map[p1.cell]].neighbors[i]].velocity - p1.velocity) * CalculatePoly6Kernel(distance_vector);
+			sum += (particles[grid[cell_map[p1.cell]].neighbors[i]].prev_velocity - p1.prev_velocity) * CalculatePoly6Kernel(distance_vector);
 		}
 
-		return p1.velocity + VISCOSITY_C * sum;
+		return p1.prev_velocity + VISCOSITY_C * sum;
 	}
 
 	inline void CalculateVorticityForce()

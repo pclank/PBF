@@ -183,23 +183,12 @@ void Simulation::TickSimulation(const float dt)
 		iter++;
 	}
 
-#ifdef VORTICITY
-	CalculateVorticityForce();
-#endif // VORTICITY
-
 	// Update Particle Data
 	for (int i = 0; i < n_particles; i++)
 	{
-		// Update velocity including XSPH Viscosity
+		// Update velocity
 		particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
-
-#ifdef VORTICITY
-		particles[i].velocity += particles[i].vorticity_force * dt;
-#endif // VORTICITY
-
-#ifdef VISCOSITY
-		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
-#endif
+		particles[i].prev_velocity = particles[i].velocity;
 
 		particles[i].com = particles[i].pred_com;
 	
@@ -208,7 +197,18 @@ void Simulation::TickSimulation(const float dt)
 #endif // PRINT_DEBUG
 	}
 
-	//ParticleCollisionDetection();
+#ifdef VISCOSITY
+	for (int i = 0; i < n_particles; i++)
+		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
+#endif
+
+#ifdef VORTICITY
+	CalculateVorticityForce();
+	for (int i = 0; i < n_particles; i++)
+	{
+		particles[i].velocity += particles[i].vorticity_force * dt;
+	}
+#endif // VORTICITY
 }
 
 void Simulation::CheckCollisionSimple()
