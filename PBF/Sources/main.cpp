@@ -20,6 +20,8 @@
 #include <cstdlib>
 #include <iostream>
 
+//#define COLOR_NEIGHBORS
+
 // Input Function Declarations
 void processKeyboardInput(GLFWwindow* window);
 void mouseMovementCallback(GLFWwindow* window, double x_pos, double y_pos);
@@ -149,13 +151,15 @@ int main(int argc, char* argv[])
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
 
     // Initialize Simulation
-    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.3f, true, &p_mesh);
+    Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.25f, true, &p_mesh);
     //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
     sim_p = &sim;
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
     gui.Init();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Rendering Loop
     while (glfwWindowShouldClose(mWindow) == false)
@@ -206,6 +210,7 @@ int main(int argc, char* argv[])
             skybox.Render(view, projection);
       
         // Render floor
+        glDisable(GL_BLEND);
         floor.Render(
             view,
             glm::mat4(1.0f),
@@ -233,6 +238,7 @@ int main(int argc, char* argv[])
         }
 
         // Render Particles
+        glEnable(GL_BLEND);
         for (int i = 0; i < sim.n_particles; i++)
         {
             p_mesh.Render(
@@ -242,8 +248,11 @@ int main(int argc, char* argv[])
                 projection,
                 g_camera.position,
                 glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
-                //glm::vec3(g_renderData.base_color[0], g_renderData.base_color[1], g_renderData.base_color[2]),
+#ifdef COLOR_NEIGHBORS
                 glm::vec3(ColorTable[sim.cell_map[sim.particles[i].cell] * 3], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 1], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 2]),
+#else
+                glm::vec3(0.83f, 0.94f, 0.97f),
+#endif
                 glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
                 g_renderData.manual_metallic,
                 g_renderData.manual_roughness,

@@ -12,7 +12,7 @@
 //static const float poly6_radius_squared = 0.25f;
 
 // Kernel Constants
-static const float poly6_radius = 0.5f;
+static const float poly6_radius = 0.75f;
 static const float poly6_kernel_const = 315 / (64 * PI * powf(poly6_radius, 9));
 static const float poly6_gradient_const = -945 / (32 * PI * powf(poly6_radius, 9));
 static const float poly6_radius_squared = poly6_radius * poly6_radius;
@@ -43,7 +43,10 @@ inline float CalculatePoly6Kernel(glm::vec3 vector)
 		return 0.0f;
 }
 
-
+/// <summary>
+/// Calculate Poly6Kernel specifically for artificial pressure
+/// </summary>
+/// <returns></returns>
 inline float CalculatePoly6KernelSCORR()
 {
 	const float r = 0.001225;
@@ -89,6 +92,11 @@ inline glm::vec3 CalculateSpikyGradient(glm::vec3 vector)
 		return glm::vec3(0.0f);
 }
 
+/// <summary>
+/// Calculate the artificial pressure scorr
+/// </summary>
+/// <param name="vector">: the vector</param>
+/// <returns></returns>
 inline float CalculateArtificialPressure(const glm::vec3 vector)
 {
 	//const float ratio = CalculatePoly6Kernel(vector) / CalculatePoly6Kernel(corr_dq);
