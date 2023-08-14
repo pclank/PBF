@@ -11,19 +11,21 @@
 #include <AuxMath.hpp>
 #include <omp.h>
 
-#define PARALLEL
+//#define PARALLEL
 #define NEIGH_PARALLEL
 #define IGNORE_SELF
-//#define CONSTRAIN_CELLS
+#define CONSTRAIN_CELLS
 #define SPIKY_GRAD
 #define NULLIFY_VELOCITY
+//#define VORTICITY
+//#define VISCOSITY
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
-static const float RELAXATION = 0.01f;
+static const float RELAXATION = 10.0f;
 static const float VISCOSITY_C = 0.01f;
-//static const float FLUID_DENSITY = 800.0f;
-static const float FLUID_DENSITY = REST_DENSITY;
+static const float FLUID_DENSITY = 800.0f;
+//static const float FLUID_DENSITY = REST_DENSITY;
 static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
 static const float VORTICITY_COEFF = 1.0f;
 static const unsigned int SOLVER_ITER = 3;
@@ -354,11 +356,13 @@ private:
 				omega -= (grid[cell_map[particles[i].cell]].neighbors.size() / FLUID_DENSITY) * glm::cross(particles[i].velocity - particles[grid[cell_map[particles[i].cell]].neighbors[j]].velocity, gradient);
 			}
 
-			omegas[i] = omega;
+			omegas.push_back(omega);
 		}
 
 		// For all particles calculate eta
+#ifdef PARALLEL
 		#pragma omp parallel for
+#endif
 		for (int i = 0; i < n_particles; i++)
 		{
 			glm::vec3 eta(0.0f);

@@ -2,6 +2,7 @@
 
 //#define DEBUG
 //#define PRINT_DEBUG
+//#define PRINT_CELLS
 
 Simulation::Simulation(unsigned int n_particles, float cell_distance, glm::vec3 particle_generation_location, glm::vec3 grid_generation_location, float floor_border, float width_border, float length_border, float gen_interval, bool distance_gen, Mesh* particle_mesh)
 	:
@@ -118,6 +119,9 @@ void Simulation::GenerateGrid()
 
 				const unsigned int cell_id = x_cell + (z_cell << 8) + (y_cell << 16);
 
+#ifdef PRINT_CELLS
+				std::cout << "Cell " << cell_cnt << ": " << new_location.x << " | " << new_location.y << " | " << new_location.z << " Cell ID " << cell_id << std::endl;
+#endif
 				cell_map[cell_id] = cell_cnt;
 				grid.push_back(new_cell);
 
@@ -144,7 +148,6 @@ void Simulation::TickSimulation(const float dt)
 	while (iter < SOLVER_ITER)
 	{
 		// Calculate Lambda
-		//omp_set_num_threads(10);
 #ifdef PARALLEL
 		#pragma omp parallel for
 #endif
@@ -152,8 +155,8 @@ void Simulation::TickSimulation(const float dt)
 		{
 			//particles[i].lambda = CalculateLambda(particles[i]);
 			particles[i].lambda = CalculateLambda2(particles[i]);
-			if (isnan(particles[i].lambda))
-				std::cout << "NAN" << std::endl;
+			/*if (isnan(particles[i].lambda) || isinf(particles[i].lambda))
+				std::cout << "NAN" << std::endl;*/
 		}
 
 		// Calculate the Position Update
@@ -180,13 +183,23 @@ void Simulation::TickSimulation(const float dt)
 		iter++;
 	}
 
+#ifdef VORTICITY
+	CalculateVorticityForce();
+#endif // VORTICITY
+
 	// Update Particle Data
 	for (int i = 0; i < n_particles; i++)
 	{
 		// Update velocity including XSPH Viscosity
 		particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
+
+#ifdef VORTICITY
 		particles[i].velocity += particles[i].vorticity_force * dt;
+#endif // VORTICITY
+
+#ifdef VISCOSITY
 		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
+#endif
 
 		particles[i].com = particles[i].pred_com;
 	
@@ -406,23 +419,23 @@ void Simulation::FindNeighbors()
 
 #ifdef CONSTRAIN_CELLS
 		// Constrain to cells
-		if (particles[i].pred_com.x >= width_border)
+		if (particles[i].pred_com.x + sphere_radius >= width_border)
 		{
 			x_cell = width_border - 1;
 			particles[i].pred_com.x = width_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
-		else if (particles[i].pred_com.x < 0)
+		else if (particles[i].pred_com.x <= 0)
 		{
 			x_cell = 0;
 			particles[i].pred_com.x = BORDER_COLLISION_INTERVAL + sphere_radius;
 		}
 
-		if (particles[i].pred_com.z >= length_border)
+		if (particles[i].pred_com.z + sphere_radius >= length_border)
 		{
 			z_cell = length_border - 1;
 			particles[i].pred_com.z = length_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
-		else if (particles[i].pred_com.z < 0)
+		else if (particles[i].pred_com.z <= 0)
 		{
 			z_cell = 0;
 			particles[i].pred_com.z = BORDER_COLLISION_INTERVAL + sphere_radius;
@@ -433,13 +446,12 @@ void Simulation::FindNeighbors()
 			y_cell = GRID_HEIGHT - 1;
 			particles[i].pred_com.y = height_border - BORDER_COLLISION_INTERVAL - sphere_radius;
 		}
-		else if (particles[i].pred_com.y < floor_border)
+		else if (particles[i].pred_com.y <= floor_border)
 		{
 			y_cell = 0;
 			particles[i].pred_com.y = floor_border + BORDER_COLLISION_INTERVAL + sphere_radius;
 		}
 #endif
-
 
 		particles[i].cell = x_cell + (z_cell << 8) + (y_cell << 16);
 
@@ -452,6 +464,17 @@ void Simulation::FindNeighbors()
 		{
 			grid[cell_map[particles[i].cell]].neighbors.push_back(i);
 		}
+#else
+		/*auto cell_map_it = cell_map.find(particles[i].cell);
+		if (cell_map_it == cell_map.end())
+		{
+			std::cout << "INVALID CELL!" << std::endl;
+			std::cout << "Particle " << i << ": " << particles[i].pred_com.x << " | " << particles[i].pred_com.y << " | " << particles[i].pred_com.z << " Cell " << particles[i].cell << std::endl;
+		}
+		else
+			grid[cell_map[particles[i].cell]].neighbors.push_back(i);*/
+
+		grid[cell_map[particles[i].cell]].neighbors.push_back(i);
 #endif
 
 #ifdef DEBUG
