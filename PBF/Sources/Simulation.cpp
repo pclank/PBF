@@ -81,9 +81,10 @@ void Simulation::GenerateParticles2()
 				new_particle.pred_com = new_location;
 				new_particle.id = particle_cnt;
 
-				particle_cnt++;
-
 				particles.push_back(new_particle);
+				particle_coms.push_back(new_location);
+
+				particle_cnt++;
 			}
 		}
 	}
@@ -124,6 +125,7 @@ void Simulation::GenerateGrid()
 #endif
 				cell_map[cell_id] = cell_cnt;
 				grid.push_back(new_cell);
+				cell_coms.push_back(new_location);
 
 				cell_cnt++;
 			}
@@ -191,6 +193,7 @@ void Simulation::TickSimulation(const float dt)
 		particles[i].prev_velocity = particles[i].velocity;
 
 		particles[i].com = particles[i].pred_com;
+		particle_coms[i] = particles[i].pred_com;
 	
 #ifdef PRINT_DEBUG
 		std::cout << "Particle " << i << ": " << particles[i].com.x << " | " << particles[i].com.y << " | " << particles[i].com.z << " Cell " << particles[i].cell << " MAPPED " << cell_map[particles[i].cell] << std::endl;
@@ -199,7 +202,10 @@ void Simulation::TickSimulation(const float dt)
 
 #ifdef VISCOSITY
 	for (int i = 0; i < n_particles; i++)
+	{
 		particles[i].velocity = CalculateXSPHViscosity(particles[i]);
+		//particles[i].prev_velocity = particles[i].velocity;
+	}
 #endif
 
 #ifdef VORTICITY

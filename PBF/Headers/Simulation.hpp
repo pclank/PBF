@@ -24,10 +24,10 @@ static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
 static const float RELAXATION = 10.0f;
 static const float VISCOSITY_C = 0.01f;
-static const float FLUID_DENSITY = 800.0f;
-//static const float FLUID_DENSITY = REST_DENSITY;
+//static const float FLUID_DENSITY = 800.0f;
+static const float FLUID_DENSITY = REST_DENSITY;
 static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
-static const float VORTICITY_COEFF = 1.0f;
+static const float VORTICITY_COEFF = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 5;
 static const float BORDER_COLLISION_INTERVAL = 0.1f;
@@ -94,6 +94,9 @@ public:
 	std::vector<Particle> particles;
 	std::vector<Cell> grid;
 	std::map<unsigned int, unsigned int> cell_map;				// Maps bit indices to actual vector indices of grid
+
+	std::vector<glm::vec3> particle_coms;
+	std::vector<glm::vec3> cell_coms;
 
 	bool sim_running = false;
 	bool step_run = false;										// Run simulation step by step
@@ -328,6 +331,9 @@ private:
 		return p1.prev_velocity + VISCOSITY_C * sum;
 	}
 
+	/// <summary>
+	/// Calculate Vorticity force for all particles
+	/// </summary>
 	inline void CalculateVorticityForce()
 	{
 		std::vector<glm::vec3> omegas;
@@ -335,7 +341,7 @@ private:
 
 		// For all particles calculate vorticity
 #ifdef PARALLEL
-		#pragma omp parallel for
+		//#pragma omp parallel for
 #endif
 		for (int i = 0; i < n_particles; i++)
 		{
@@ -353,7 +359,7 @@ private:
 				const glm::vec3 gradient = CalculateSpikyGradient(particles[i].pred_com - particles[grid[cell_map[particles[i].cell]].neighbors[j]].pred_com);
 #endif // !SPIKY_GRAD
 
-				omega -= (grid[cell_map[particles[i].cell]].neighbors.size() / FLUID_DENSITY) * glm::cross(particles[i].velocity - particles[grid[cell_map[particles[i].cell]].neighbors[j]].velocity, gradient);
+				omega -= (grid[cell_map[particles[i].cell]].neighbors.size() / FLUID_DENSITY) * glm::cross(particles[i].prev_velocity - particles[grid[cell_map[particles[i].cell]].neighbors[j]].prev_velocity, gradient);
 			}
 
 			omegas.push_back(omega);
@@ -361,7 +367,7 @@ private:
 
 		// For all particles calculate eta
 #ifdef PARALLEL
-		#pragma omp parallel for
+		//#pragma omp parallel for
 #endif
 		for (int i = 0; i < n_particles; i++)
 		{

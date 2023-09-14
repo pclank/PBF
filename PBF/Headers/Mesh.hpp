@@ -20,10 +20,12 @@ public:
 
 	// constructors
 	Mesh();
-	Mesh(std::string const& filename, Shader* shader);
+	Mesh(std::string const& filename, Shader* shader, unsigned int instancedVBO = 0);
 	~Mesh();
 
 	void Render(glm::mat4, glm::mat4, glm::mat4, glm::vec3, glm::vec3, glm::vec3, glm::vec3, float, float, GLuint, GLuint, GLuint);
+
+	void RenderInstanced(glm::mat4, glm::mat4, glm::mat4, glm::vec3, glm::vec3, glm::vec3, glm::vec3, float, float, GLuint, GLuint, GLuint, unsigned int);
 	
 	/// <summary>
 	/// Change Shader associated with the mesh
@@ -32,14 +34,15 @@ public:
 	void ChangeShader(Shader* new_shader);
 
 	std::vector<Vertex> m_vertices;												// Vertices of Mesh (Vertex struct)
+	unsigned int instancedVBO;
 
 	Shader* getShader();
 	
 private:
-	Mesh(std::vector<Vertex> const& verts, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, Shader* shader);
+	Mesh(std::vector<Vertex> const& verts, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, Shader* shader, unsigned int instancedVBO = 0);
 
-	void Parse(const aiNode* node, const aiScene* scene);
-	void Parse(const aiMesh* mesh, const aiScene* scene);
+	void Parse(const aiMesh* mesh, const aiScene* scene, unsigned int instancedVBO = 0);
+	void Parse(const aiNode* node, const aiScene* scene, unsigned int instancedVBO = 0);
 
 	/// <summary>
 	/// Loads textures bases on type

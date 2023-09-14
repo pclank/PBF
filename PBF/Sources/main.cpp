@@ -21,6 +21,7 @@
 #include <iostream>
 
 //#define COLOR_NEIGHBORS
+#define INSTANCED_RENDERING
 
 // Input Function Declarations
 void processKeyboardInput(GLFWwindow* window);
@@ -108,6 +109,15 @@ int main(int argc, char* argv[])
         .registerShader("Shaders/lighting_shader_simple.frag", GL_FRAGMENT_SHADER)
         .link();
 
+    // create and link instanced shader
+    Shader instancedShader = Shader();
+    instancedShader.init();
+
+    instancedShader
+        .registerShader("Shaders/instanced_shader.vert", GL_VERTEX_SHADER)
+        .registerShader("Shaders/lighting_shader_simple.frag", GL_FRAGMENT_SHADER)
+        .link();
+
     // create and link line shader
     Shader lineShader = Shader();
     lineShader.init();
@@ -147,13 +157,32 @@ int main(int argc, char* argv[])
     Border len_0(0, lineShader);
     Border len_1(1, lineShader);
 
+    // VBOS for instancing
+    unsigned int instancedVBO, instancedCellVBO;
+    glGenBuffers(1, &instancedVBO);
+    glGenBuffers(1, &instancedCellVBO);
+
     // Create Particle Mesh
+#ifdef INSTANCED_RENDERING
+    Mesh p_mesh("Assets/particle_sphere.fbx", &instancedShader, instancedVBO);
+    Mesh c_mesh("Assets/particle_sphere.fbx", &instancedShader, instancedCellVBO);
+#else
     Mesh p_mesh("Assets/particle_sphere.fbx", &defaultShader);
+#endif
 
     // Initialize Simulation
     Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 0.25f, true, &p_mesh);
-    //Simulation sim(128, 3.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(-10.0f, 1.0f, -5.0f), 0.1f, 10.0f, 5.0f, 0.5f, true, &p_mesh);
+    //Simulation sim(128, 1.0f, glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec3(0.0f), 0.1f, 5.0f, 4.0f, 1.0f, true, &p_mesh);
     sim_p = &sim;
+
+#ifdef INSTANCED_RENDERING
+    // Set up instancing
+    glBindBuffer(GL_ARRAY_BUFFER, instancedVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * sim.n_particles, &sim.particle_coms[0], GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, instancedCellVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* sim.n_cells, &sim.cell_coms[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+#endif
 
     // Initialize our GUI
     GUI gui = GUI(mWindow, g_camera, g_renderData, g_timer, assetLoader);
@@ -239,6 +268,7 @@ int main(int argc, char* argv[])
 
         // Render Particles
         glEnable(GL_BLEND);
+#ifndef INSTANCED_RENDERING
         for (int i = 0; i < sim.n_particles; i++)
         {
             p_mesh.Render(
@@ -261,7 +291,36 @@ int main(int argc, char* argv[])
                 texture_specularID
             );
         }
+#endif
+        
+#ifdef INSTANCED_RENDERING
+        // Update Buffer
+        glBindBuffer(GL_ARRAY_BUFFER, instancedVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * sim.n_particles, &sim.particle_coms[0], GL_DYNAMIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+        p_mesh.RenderInstanced(
+            view,
+            glm::mat4(1.0f),
+            projection,
+            g_camera.position,
+            glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
+#ifdef COLOR_NEIGHBORS
+            glm::vec3(ColorTable[sim.cell_map[sim.particles[i].cell] * 3], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 1], ColorTable[sim.cell_map[sim.particles[i].cell] * 3 + 2]),
+#else
+            glm::vec3(0.83f, 0.94f, 0.97f),
+#endif
+            glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+            g_renderData.manual_metallic,
+            g_renderData.manual_roughness,
+            texture_diffuseID,
+            texture_normalID,
+            texture_specularID,
+            sim.n_particles
+        );
+#endif
+
+#ifndef INSTANCED_RENDERING
         // Render Cells
         for (int i = 0; i < sim.n_cells; i++)
         {
@@ -281,6 +340,27 @@ int main(int argc, char* argv[])
                 texture_specularID
             );
         }
+#endif
+
+#ifdef INSTANCED_RENDERING
+        // Render Cells
+        c_mesh.RenderInstanced(
+            view,
+            glm::scale(glm::mat4(1.0f), glm::vec3(g_renderData.scale)),
+            projection,
+            g_camera.position,
+            glm::vec3(g_renderData.light_position[0], g_renderData.light_position[1], g_renderData.light_position[2]),
+            glm::vec3(1.0f, 1.0f, 1.0f),
+            //glm::vec3(g_renderData.light_color[0], g_renderData.light_color[1], g_renderData.light_color[2]),
+            glm::vec3(1.0f, 1.0f, 1.0f),
+            g_renderData.manual_metallic,
+            g_renderData.manual_roughness,
+            texture_diffuseID,
+            texture_normalID,
+            texture_specularID,
+            sim.n_cells
+        );
+#endif
         
         // Render GUI
         gui.Render();

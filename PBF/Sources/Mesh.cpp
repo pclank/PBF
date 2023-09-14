@@ -15,11 +15,12 @@
 // System Headers
 #include <stb_image.h>
 
-Mesh::Mesh(std::string const& filename, Shader* shader)
+Mesh::Mesh(std::string const& filename, Shader* shader, unsigned int instancedVBO)
     //:
     //Mesh()
 {
     this->shader = shader;
+    this->instancedVBO = instancedVBO;
 
     //Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
@@ -34,19 +35,20 @@ Mesh::Mesh(std::string const& filename, Shader* shader)
     else
     {
         dir = filename.substr(0, filename.find_last_of('/'));
-        Parse(scene->mRootNode, scene);
+        Parse(scene->mRootNode, scene, instancedVBO);
 
         // Set root node
         this->scene = scene;
     }
 }
 
-Mesh::Mesh(std::vector<Vertex> const& verts, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, Shader* shader)
+Mesh::Mesh(std::vector<Vertex> const& verts, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, Shader* shader, unsigned int instancedVBO)
     :
     m_vertices(verts),
     m_indices(indices),
     m_textures(textures),
-    shader(shader)
+    shader(shader),
+    instancedVBO(instancedVBO)
 {
     // bind the default vertex array object
     glGenVertexArrays(1, &m_VAO);
@@ -96,6 +98,17 @@ Mesh::Mesh(std::vector<Vertex> const& verts, std::vector<unsigned int> const& in
 
     glVertexAttribPointer(6, MAXIMUM_BONES, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, weights));
     glEnableVertexAttribArray(6);  // Bone weights
+
+    // Enable instancing
+    if (this->instancedVBO != 0)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, instancedVBO);
+        glEnableVertexAttribArray(7);
+        glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glVertexAttribDivisor(7, 1);
+    }
+
     glBindVertexArray(0);
 }
 
@@ -162,16 +175,72 @@ void Mesh::Render(glm::mat4 view, glm::mat4 model, glm::mat4 projection, glm::ve
     glBindVertexArray(0);
 }
 
-void Mesh::Parse(const aiNode* node, const aiScene* scene)
+void Mesh::RenderInstanced(glm::mat4 view, glm::mat4 model, glm::mat4 projection, glm::vec3 cam_pos, glm::vec3 light_pos, glm::vec3 base_color, glm::vec3 manual_light_color, float manual_metallic, float manual_roughness, GLuint texture_diffuse, GLuint texture_normal, GLuint texture_specular, unsigned int amount)
 {
-    for (unsigned int i = 0; i < node->mNumMeshes; i++)
-        Parse(scene->mMeshes[node->mMeshes[i]], scene);
+    // Use shader
+    shader->use();
 
-    for (unsigned int i = 0; i < node->mNumChildren; i++)
-        Parse(node->mChildren[i], scene);
+    // Pass uniforms
+    shader->setMat4("viewMatrix", view);
+    shader->setMat4("modelMatrix", model);
+    shader->setMat4("projectionMatrix", projection);
+    shader->setVec3("CamPos", cam_pos);
+    shader->setVec3("LightPosition", light_pos);
+    shader->setVec3("BaseColor", base_color);
+    shader->setVec3("ManualLightColor", manual_light_color);
+    shader->setFloat("ManualMetallic", manual_metallic);
+    shader->setFloat("ManualRoughness", manual_roughness);
+    //shader->setInt("DiffuseTexture", 0);
+    //shader->setInt("NormalTexture", 1);
+    //shader->setInt("SpecularTexture", 2);
+
+
+    for (auto& mesh : m_subMeshes)
+        mesh->RenderInstanced(view, model, projection, cam_pos, light_pos, base_color, manual_light_color, manual_metallic, manual_roughness, texture_diffuse, texture_normal, texture_specular, amount);
+
+    // bind appropriate textures
+    unsigned int diffuseNr = 0;
+    unsigned int specularNr = 0;
+    unsigned int normalNr = 0;
+    unsigned int heightNr = 0;
+    for (unsigned int i = 0; i < m_textures.size(); i++)
+    {
+        glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+        // retrieve texture number (the N in diffuse_textureN)
+        std::string number;
+        std::string name = m_textures[i].type;
+        if (name == "texture_diffuse")
+            number = std::to_string(diffuseNr++);
+        else if (name == "texture_specular")
+            number = std::to_string(specularNr++); // transfer unsigned int to string
+        else if (name == "texture_normal")
+            number = std::to_string(normalNr++); // transfer unsigned int to string
+        else if (name == "texture_height")
+            number = std::to_string(heightNr++); // transfer unsigned int to string
+
+        // now set the sampler to the correct texture unit
+        //glUniform1i(glGetUniformLocation(shader->getShaderID(), (name + number).c_str()), i);
+        glUniform1i(glGetUniformLocation(shader->getShaderID(), name.c_str()), i);
+        // and finally bind the texture
+        glBindTexture(GL_TEXTURE_2D, m_textures[i].id);
+    }
+
+    glBindVertexArray(m_VAO);
+    glDrawElementsInstanced(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0, amount);
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(0);
 }
 
-void Mesh::Parse(const aiMesh* mesh, const aiScene* scene)
+void Mesh::Parse(const aiNode* node, const aiScene* scene, unsigned int instancedVBO)
+{
+    for (unsigned int i = 0; i < node->mNumMeshes; i++)
+        Parse(scene->mMeshes[node->mMeshes[i]], scene, instancedVBO);
+
+    for (unsigned int i = 0; i < node->mNumChildren; i++)
+        Parse(node->mChildren[i], scene, instancedVBO);
+}
+
+void Mesh::Parse(const aiMesh* mesh, const aiScene* scene, unsigned int instancedVBO)
 {
     // Parse vertices
     std::vector<Vertex> vertices;
@@ -224,7 +293,7 @@ void Mesh::Parse(const aiMesh* mesh, const aiScene* scene)
     this->m_textures = textures;
 
     m_subMeshes.push_back(
-        std::unique_ptr<Mesh>(new Mesh(this->m_vertices, this->m_indices, this->m_textures, shader))
+        std::unique_ptr<Mesh>(new Mesh(this->m_vertices, this->m_indices, this->m_textures, shader, instancedVBO))
     );
 }
 
