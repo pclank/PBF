@@ -296,7 +296,7 @@ int main(int argc, char* argv[])
 #ifdef INSTANCED_RENDERING
         // Update Buffer
         glBindBuffer(GL_ARRAY_BUFFER, instancedVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * sim.n_particles, &sim.particle_coms[0], GL_DYNAMIC_DRAW);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec3) * sim.n_particles, &sim.particle_coms[0]);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         p_mesh.RenderInstanced(
