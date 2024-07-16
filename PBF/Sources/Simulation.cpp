@@ -190,6 +190,18 @@ void Simulation::TickSimulation(const float dt)
 	{
 		// Update velocity
 		particles[i].velocity = (particles[i].pred_com - particles[i].com) / dt;
+
+#ifdef CLAMPING
+		for (int j = 0; j < 3; j++)
+		{
+			if (glm::length(particles[i].velocity[j]) < -1e8f)
+				particles[i].velocity[j] = -1e8f;
+			else if (glm::length(particles[i].velocity[j]) > 1e8f)
+				particles[i].velocity[j] = 1e8f;
+		}
+
+#endif // CLAMPING
+
 		particles[i].prev_velocity = particles[i].velocity;
 
 		particles[i].com = particles[i].pred_com;
@@ -239,7 +251,9 @@ void Simulation::CheckCollisionSimple()
 				custom_cor = 0.0f;
 			}
 
-			const float impulse_magnitude = (-(1 + custom_cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm);
+			static const float norm_dot = glm::dot(norm, norm);
+			//const float impulse_magnitude = (-(1 + custom_cor) * glm::dot(particles[i].velocity, norm)) / glm::dot(norm, norm);
+			const float impulse_magnitude = (-(1 + custom_cor) * glm::dot(particles[i].velocity, norm)) / norm_dot;
 
 			particles[i].velocity += impulse_magnitude * norm;
 		}
@@ -296,57 +310,73 @@ void Simulation::StupidBorderCollision()
 		if (particles[i].pred_com.y - sphere_radius < floor_border)
 		{
 			particles[i].pred_com.y = floor_border + sphere_radius + BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.y = -particles[i].velocity.y;
 #else
-			particles[i].velocity.y = 0.0f;
+			//particles[i].velocity.y = 0.0f;
+			particles[i].velocity.y = -particles[i].velocity.y;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += BORDER_COLLISION_INTERVAL * glm::normalize(particles[i].velocity);
+#else
+			particles[i].pred_com.y += particles[i].velocity.y;
+#endif // DIRECTION_BASED
 #endif
 		}
 		else if (particles[i].pred_com.y + sphere_radius > height_border)
 		{
 			particles[i].pred_com.y = height_border - sphere_radius - BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.y = -particles[i].velocity.y;
 #else
-			particles[i].velocity.y = 0.0f;
+			//particles[i].velocity.y = 0.0f;
+			particles[i].velocity.y = -particles[i].velocity.y;
+			particles[i].pred_com.y += particles[i].velocity.y;
 #endif
 		}
 
 		if (particles[i].pred_com.z + sphere_radius > length_border)
 		{
 			particles[i].pred_com.z = length_border - sphere_radius - BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.z = -particles[i].velocity.z;
 #else
-			particles[i].velocity.z = 0.0f;
+			//particles[i].velocity.z = 0.0f;
+			particles[i].velocity.z = -particles[i].velocity.z;
+			particles[i].pred_com.z += particles[i].velocity.z;
 #endif
 		}
 		else if (particles[i].pred_com.z - sphere_radius < 0)
 		{
 			particles[i].pred_com.z = sphere_radius + BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.z = -particles[i].velocity.z;
 #else
-			particles[i].velocity.z = 0.0f;
+			//particles[i].velocity.z = 0.0f;
+			particles[i].velocity.z = -particles[i].velocity.z;
+			particles[i].pred_com.z += particles[i].velocity.z;
 #endif
 		}
 
 		if (particles[i].pred_com.x + sphere_radius > width_border)
 		{
 			particles[i].pred_com.x = width_border - sphere_radius - BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.x = -particles[i].velocity.x;
 #else
-			particles[i].velocity.x = 0.0f;
+			//particles[i].velocity.x = 0.0f;
+			particles[i].velocity.x = -particles[i].velocity.x;
+			particles[i].pred_com.x += particles[i].velocity.x;
 #endif
 		}
 		else if (particles[i].pred_com.x - sphere_radius < 0)
 		{
 			particles[i].pred_com.x = sphere_radius + BORDER_COLLISION_INTERVAL;
-#ifndef NULLIFY_VELOCITY
+#ifndef REVERSE_VELOCITY
 			particles[i].velocity.x = -particles[i].velocity.x;
 #else
-			particles[i].velocity.x = 0.0f;
+			//particles[i].velocity.x = 0.0f;
+			particles[i].velocity.x = -particles[i].velocity.x;
+			particles[i].pred_com.x += particles[i].velocity.x;
 #endif
 		}
 	}

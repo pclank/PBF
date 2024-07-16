@@ -16,9 +16,14 @@
 #define IGNORE_SELF
 #define CONSTRAIN_CELLS
 #define SPIKY_GRAD
-#define NULLIFY_VELOCITY
+
+// Velocity definitions
+#define REVERSE_VELOCITY
+//#define DIRECTION_BASED
+
 //#define VORTICITY
 #define VISCOSITY
+#define CLAMPING
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
@@ -30,7 +35,8 @@ static const float FLUID_DENSITY_SQUARED = FLUID_DENSITY * FLUID_DENSITY;
 static const float VORTICITY_COEFF = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 5;
-static const float BORDER_COLLISION_INTERVAL = 0.1f;
+//static const float BORDER_COLLISION_INTERVAL = 0.1f;
+static const float BORDER_COLLISION_INTERVAL = 0.001f;
 static const float smooth_factor = 1.0f;
 
 typedef std::pair<glm::vec3, float> Impulse;
