@@ -172,6 +172,7 @@ void Simulation::TickSimulation(const float dt)
 		//CheckCollisionSimple();
 		//ParticleCollisionDetection();
 		StupidBorderCollision();
+		//StupidBorderCollisionDT(dt);
 
 		// Update Positions
 #ifdef PARALLEL
@@ -194,10 +195,14 @@ void Simulation::TickSimulation(const float dt)
 #ifdef CLAMPING
 		for (int j = 0; j < 3; j++)
 		{
-			if (glm::length(particles[i].velocity[j]) < -1e8f)
-				particles[i].velocity[j] = -1e8f;
-			else if (glm::length(particles[i].velocity[j]) > 1e8f)
-				particles[i].velocity[j] = 1e8f;
+			/*if (glm::length(particles[i].velocity[j]) < -VELOCITY_CLAMP)
+				particles[i].velocity[j] = -VELOCITY_CLAMP;
+			else if (glm::length(particles[i].velocity[j]) > VELOCITY_CLAMP)
+				particles[i].velocity[j] = VELOCITY_CLAMP;*/
+			if (particles[i].velocity[j] < -VELOCITY_CLAMP)
+				particles[i].velocity[j] = -VELOCITY_CLAMP;
+			else if (particles[i].velocity[j] > VELOCITY_CLAMP)
+				particles[i].velocity[j] = VELOCITY_CLAMP;
 		}
 
 #endif // CLAMPING
@@ -316,7 +321,7 @@ void Simulation::StupidBorderCollision()
 			//particles[i].velocity.y = 0.0f;
 			particles[i].velocity.y = -particles[i].velocity.y;
 #ifdef DIRECTION_BASED
-			particles[i].pred_com += BORDER_COLLISION_INTERVAL * glm::normalize(particles[i].velocity);
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
 #else
 			particles[i].pred_com.y += particles[i].velocity.y;
 #endif // DIRECTION_BASED
@@ -330,7 +335,11 @@ void Simulation::StupidBorderCollision()
 #else
 			//particles[i].velocity.y = 0.0f;
 			particles[i].velocity.y = -particles[i].velocity.y;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
+#else
 			particles[i].pred_com.y += particles[i].velocity.y;
+#endif // DIRECTION_BASED
 #endif
 		}
 
@@ -342,7 +351,11 @@ void Simulation::StupidBorderCollision()
 #else
 			//particles[i].velocity.z = 0.0f;
 			particles[i].velocity.z = -particles[i].velocity.z;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
+#else
 			particles[i].pred_com.z += particles[i].velocity.z;
+#endif // DIRECTION_BASED
 #endif
 		}
 		else if (particles[i].pred_com.z - sphere_radius < 0)
@@ -353,7 +366,11 @@ void Simulation::StupidBorderCollision()
 #else
 			//particles[i].velocity.z = 0.0f;
 			particles[i].velocity.z = -particles[i].velocity.z;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
+#else
 			particles[i].pred_com.z += particles[i].velocity.z;
+#endif // DIRECTION_BASED
 #endif
 		}
 
@@ -365,7 +382,11 @@ void Simulation::StupidBorderCollision()
 #else
 			//particles[i].velocity.x = 0.0f;
 			particles[i].velocity.x = -particles[i].velocity.x;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
+#else
 			particles[i].pred_com.x += particles[i].velocity.x;
+#endif // DIRECTION_BASED
 #endif
 		}
 		else if (particles[i].pred_com.x - sphere_radius < 0)
@@ -376,7 +397,114 @@ void Simulation::StupidBorderCollision()
 #else
 			//particles[i].velocity.x = 0.0f;
 			particles[i].velocity.x = -particles[i].velocity.x;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += VELOCITY_MAGNITUDE * glm::normalize(particles[i].velocity);
+#else
 			particles[i].pred_com.x += particles[i].velocity.x;
+#endif // DIRECTION_BASED
+#endif
+		}
+	}
+}
+
+void Simulation::StupidBorderCollisionDT(const float dt)
+{
+#ifdef PARALLEL
+#pragma omp parallel for
+#endif
+	for (int i = 0; i < n_particles; i++)
+	{
+		// Check floor/top collision
+		if (particles[i].pred_com.y - sphere_radius < floor_border)
+		{
+			particles[i].pred_com.y = floor_border + sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.y = -particles[i].velocity.y;
+#else
+			//particles[i].velocity.y = 0.0f;
+			particles[i].velocity.y = -particles[i].velocity.y;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.y += particles[i].velocity.y;
+#endif // DIRECTION_BASED
+#endif
+		}
+		else if (particles[i].pred_com.y + sphere_radius > height_border)
+		{
+			particles[i].pred_com.y = height_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.y = -particles[i].velocity.y;
+#else
+			//particles[i].velocity.y = 0.0f;
+			particles[i].velocity.y = -particles[i].velocity.y;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.y += particles[i].velocity.y;
+#endif // DIRECTION_BASED
+#endif
+		}
+
+		if (particles[i].pred_com.z + sphere_radius > length_border)
+		{
+			particles[i].pred_com.z = length_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.z = -particles[i].velocity.z;
+#else
+			//particles[i].velocity.z = 0.0f;
+			particles[i].velocity.z = -particles[i].velocity.z;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.z += particles[i].velocity.z;
+#endif // DIRECTION_BASED
+#endif
+		}
+		else if (particles[i].pred_com.z - sphere_radius < 0)
+		{
+			particles[i].pred_com.z = sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.z = -particles[i].velocity.z;
+#else
+			//particles[i].velocity.z = 0.0f;
+			particles[i].velocity.z = -particles[i].velocity.z;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.z += particles[i].velocity.z;
+#endif // DIRECTION_BASED
+#endif
+		}
+
+		if (particles[i].pred_com.x + sphere_radius > width_border)
+		{
+			particles[i].pred_com.x = width_border - sphere_radius - BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.x = -particles[i].velocity.x;
+#else
+			//particles[i].velocity.x = 0.0f;
+			particles[i].velocity.x = -particles[i].velocity.x;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.x += particles[i].velocity.x;
+#endif // DIRECTION_BASED
+#endif
+		}
+		else if (particles[i].pred_com.x - sphere_radius < 0)
+		{
+			particles[i].pred_com.x = sphere_radius + BORDER_COLLISION_INTERVAL;
+#ifndef REVERSE_VELOCITY
+			particles[i].velocity.x = -particles[i].velocity.x;
+#else
+			//particles[i].velocity.x = 0.0f;
+			particles[i].velocity.x = -particles[i].velocity.x;
+#ifdef DIRECTION_BASED
+			particles[i].pred_com += particles[i].velocity / dt;
+#else
+			particles[i].pred_com.x += particles[i].velocity.x;
+#endif // DIRECTION_BASED
 #endif
 		}
 	}

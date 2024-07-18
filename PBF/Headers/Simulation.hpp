@@ -20,10 +20,10 @@
 // Velocity definitions
 #define REVERSE_VELOCITY
 //#define DIRECTION_BASED
+#define CLAMPING
 
 //#define VORTICITY
 #define VISCOSITY
-#define CLAMPING
 
 static const float MIN_VEL = 1.0f;
 static const float REST_DENSITY = 1000.0f;
@@ -36,7 +36,10 @@ static const float VORTICITY_COEFF = 0.01f;
 static const unsigned int SOLVER_ITER = 3;
 static const int GRID_HEIGHT = 5;
 //static const float BORDER_COLLISION_INTERVAL = 0.1f;
-static const float BORDER_COLLISION_INTERVAL = 0.001f;
+static const float BORDER_COLLISION_INTERVAL = 0.001f; 
+static const float VELOCITY_MAGNITUDE = 2.0f;
+//static const float VELOCITY_CLAMP = 2.0f;
+static const float VELOCITY_CLAMP = 5.0f;
 static const float smooth_factor = 1.0f;
 
 typedef std::pair<glm::vec3, float> Impulse;
@@ -150,6 +153,11 @@ private:
 	/// Handle border collision in the simplest way
 	/// </summary>
 	void StupidBorderCollision();
+
+	/// <summary>
+	/// Handle border collision in the simplest way with DeltaTime
+	/// </summary>
+	void StupidBorderCollisionDT(const float dt);
 
 	/// <summary>
 	/// Checks for collisions between the particles
